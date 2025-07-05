@@ -1,10 +1,10 @@
 # Gift Kalu
 
-**Data Enthusiast | Creative Writer | Tech Sis**
+Data Enthusiast | Creative Writer | Tech Sis
 
 ---
 
-## 👋 Hey, I'm Kala
+## 👋 Hey, I'm Gift (The Creative Data Scientist)
 
 I’m a data enthusiast and a creative writer. COMBINATION (IYKYK).  
 After lots of research (and yes, a few personality tests), I found myself drawn to data science and machine learning.
@@ -55,10 +55,10 @@ If you ever want to chat, collaborate, or want some content magic or data insigh
 ## 📬 Contact Me
 
 Let’s connect!  
-- 📧 [Email Placeholder]  
-- 🔗 [LinkedIn Placeholder]  
-- 💻 [GitHub Placeholder]  
-- ✍️ [Blog/Content Writing Portfolio Placeholder]
+- 📧 [[Email](mailto:giftkalu247@gmail.com)]  
+- 🔗 [[LinkedIn](www.linkedin.com/in/gift-kalu)]  
+- 💻 [[GitHub](https://github.com/gee-kay06)]  
+- ✍️ [[Medium](https://medium.com/@giftkalu)]
 
 ---
 
