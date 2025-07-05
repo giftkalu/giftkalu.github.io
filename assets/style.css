@@ -4,17 +4,19 @@
   --white: #ffffff;
   --text-dark: #1c1c1c;
   --accent: #b88c4f;
+  --light-accent: #fcebd3;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--main-bg);
   color: var(--text-dark);
+  line-height: 1.6;
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   color: var(--text-dark);
   text-align: center;
@@ -36,6 +38,7 @@ h2 {
   text-decoration: none;
   color: var(--text-dark);
   font-weight: bold;
+  font-size: 1rem;
   transition: color 0.3s ease;
 }
 
@@ -43,11 +46,18 @@ h2 {
   color: var(--accent);
 }
 
+section {
+  padding: 3rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
 .carousel {
   display: flex;
   overflow-x: auto;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
 }
 
 .carousel::-webkit-scrollbar {
@@ -89,6 +99,8 @@ h2 {
 .testimonial-card {
   padding: 1rem;
   text-align: center;
+  background: var(--light-accent);
+  border: 1px solid #e8d2b9;
 }
 
 .testimonial-card img {
@@ -107,14 +119,20 @@ h2 {
 
 .blog-preview {
   background: var(--white);
-  padding: 1rem;
+  padding: 1.5rem;
   margin-bottom: 1rem;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: background 0.3s ease;
+}
+
+.blog-preview:hover {
+  background: #fff7ef;
 }
 
 .blog-preview h3 {
   margin-top: 0;
+  color: var(--accent);
 }
 
 .blog-preview a {
@@ -134,4 +152,6 @@ h2 {
   text-align: center;
   font-size: 0.9rem;
   margin: 0.5rem 0;
+  padding: 0 0.5rem;
+  color: var(--text-dark);
 }
