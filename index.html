@@ -136,6 +136,51 @@
     <a href="https://medium.com/@giftkalu">Medium</a>
   </div>
 </section>
+<script>
+  const abcd = document.getElementById('abcd');
+  const abcdExpanded = document.getElementById('abcd-expanded');
+  const phrases = [
+    'AI enthusiast',
+    'Builder',
+    'Creative Writing',
+    'Data Science and Machine Learning'
+  ];
+
+  let index = 0;
+
+  function animateABCD() {
+    abcdExpanded.textContent = phrases[index];
+    abcdExpanded.classList.remove('fade-in');
+    void abcdExpanded.offsetWidth; // Trigger reflow to restart animation
+    abcdExpanded.classList.add('fade-in');
+    index = (index + 1) % phrases.length;
+  }
+
+  setInterval(animateABCD, 2000);
+  animateABCD();
+</script>
+
+<style>
+  #abcd {
+    font-size: 1.2rem;
+    letter-spacing: 0.4rem;
+    margin-top: 0.5rem;
+    color: var(--accent);
+  }
+
+  #abcd-expanded {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-top: 0.2rem;
+    opacity: 0;
+    transition: opacity 0.6s ease-in;
+  }
+
+  .fade-in {
+    opacity: 1 !important;
+  }
+</style>
 
 
 </body>
