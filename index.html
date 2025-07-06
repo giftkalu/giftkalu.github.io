@@ -1,13 +1,414 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gift Kalu | Creative Data Scientist</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <script defer src="assets/script.js"></script>
-  <script defer src="assets/hero-animation.js"></script>
+  <style>
+    :root {
+      --main-bg: #f7f3f0;
+      --brown-light: #d2b48c;
+      --brown-medium: #a0845c;
+      --brown-dark: #8b4513;
+      --white: #ffffff;
+      --cream: #faf6f3;
+      --text-dark: #3e2723;
+      --accent: #8b4513;
+      --secondary: #e8ddd4;
+      --light-gray: #9e9e9e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--main-bg);
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 25% 25%, rgba(210, 180, 140, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(250, 246, 243, 0.8) 0%, rgba(247, 243, 240, 0.9) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(139, 69, 19, 0.1);
+      border-bottom: 1px solid var(--brown-light);
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 1rem 2rem;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--main-bg) 100%);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin: 1rem 0 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+      border: 3px solid var(--brown-light);
+    }
+
+    #abcd-expanded {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-style: italic;
+      color: var(--brown-dark);
+      margin-top: 0.2rem;
+      opacity: 0;
+      transition: opacity 0.6s ease-in;
+    }
+
+    .fade-in {
+      opacity: 1 !important;
+    }
+
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .fade-in-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .about {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      border: 1px solid var(--brown-light);
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .skills-list span {
+      background: linear-gradient(135deg, var(--brown-medium) 0%, var(--brown-dark) 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
+    }
+
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      position: relative;
+      width: 100%;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      animation: scroll-infinite 20s linear infinite;
+      width: fit-content;
+    }
+
+    .carousel.reverse .carousel-track {
+      animation: scroll-infinite-reverse 20s linear infinite;
+    }
+
+    @keyframes scroll-infinite {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-infinite-reverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    .project-card, .certificate-card, .testimonial-card {
+      flex: 0 0 auto;
+      width: 300px;
+      height: 250px;
+      background: var(--white);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      position: relative;
+      transition: transform 0.3s ease;
+      border: 1px solid var(--brown-light);
+    }
+
+    .project-card:hover, .certificate-card:hover, .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
+    }
+
+    .testimonial-card {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: var(--white);
+    }
+
+    .testimonial-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      border: 2px solid var(--brown-light);
+    }
+
+    .testimonial-card p {
+      font-style: italic;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .testimonial-card span {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .blogs {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      border: 1px solid var(--brown-light);
+    }
+
+    .blogs #blogs-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .blog-preview {
+      background: var(--cream);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(139, 69, 19, 0.1);
+      border: 1px solid var(--brown-light);
+    }
+
+    .blog-preview h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .blog-preview a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .blogs button {
+      background: linear-gradient(135deg, var(--brown-medium) 0%, var(--brown-dark) 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .blogs button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 69, 19, 0.2);
+    }
+
+    .book-shelf {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .book-card {
+      text-align: center;
+      max-width: 200px;
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      border: 1px solid var(--brown-light);
+      transition: transform 0.3s ease;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .book-card img {
+      width: 150px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    .contact {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      border: 1px solid var(--brown-light);
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .contact input, .contact textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 2px solid var(--secondary);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: var(--cream);
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      outline: none;
+      border-color: var(--brown-medium);
+    }
+
+    .contact button {
+      background: linear-gradient(135deg, var(--brown-medium) 0%, var(--brown-dark) 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .contact button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 69, 19, 0.2);
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .socials a {
+      color: var(--text-dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .socials a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      section {
+        padding: 2rem 1rem;
+      }
+      
+      .project-card, .certificate-card, .testimonial-card {
+        width: 250px;
+        height: 200px;
+      }
+
+      .carousel-track {
+        animation-duration: 15s;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -19,7 +420,7 @@
   </nav>
 
   <header class="hero">
-    <img src="https://via.placeholder.com/140x140/3498db/ffffff?text=GK" alt="Gift Kalu" class="profile-pic">
+    <img src="https://via.placeholder.com/140x140/8b4513/ffffff?text=GK" alt="Gift Kalu" class="profile-pic">
     <h1>Gift Kalu</h1>
     <div id="abcd-expanded"></div>
   </header>
@@ -58,29 +459,57 @@
   <section class="projects-carousel fade-in-section">
     <h2>Projects</h2>
     <div class="carousel" id="projects-container">
-      <div class="project-card">
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          Data Visualization Dashboard
+      <div class="carousel-track">
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Data Visualization Dashboard
+          </div>
         </div>
-      </div>
-      <div class="project-card">
-        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          Customer Churn Prediction
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #d2b48c 0%, #a0845c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Customer Churn Prediction
+          </div>
         </div>
-      </div>
-      <div class="project-card">
-        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          Content Strategy Calendar
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #8b4513 0%, #654321 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Content Strategy Calendar
+          </div>
         </div>
-      </div>
-      <div class="project-card">
-        <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          NLP Sentiment Analysis
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            NLP Sentiment Analysis
+          </div>
         </div>
-      </div>
-      <div class="project-card">
-        <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          Sales Forecasting Model
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #d2b48c 0%, #a0845c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Sales Forecasting Model
+          </div>
+        </div>
+        <!-- Duplicate cards for infinite scroll -->
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Data Visualization Dashboard
+          </div>
+        </div>
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #d2b48c 0%, #a0845c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Customer Churn Prediction
+          </div>
+        </div>
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #8b4513 0%, #654321 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Content Strategy Calendar
+          </div>
+        </div>
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            NLP Sentiment Analysis
+          </div>
+        </div>
+        <div class="project-card">
+          <div style="background: linear-gradient(135deg, #d2b48c 0%, #a0845c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Sales Forecasting Model
+          </div>
         </div>
       </div>
     </div>
@@ -89,25 +518,48 @@
   <section class="testimonials fade-in-section">
     <h2>Testimonials</h2>
     <div class="carousel reverse" id="testimonials-container">
-      <div class="testimonial-card">
-        <img src="https://via.placeholder.com/60x60/e74c3c/ffffff?text=JD" alt="Jane Doe">
-        <p>"Gift is incredibly insightful and creative! She brings data and storytelling together beautifully."</p>
-        <span>- Jane Doe</span>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://via.placeholder.com/60x60/2ecc71/ffffff?text=JS" alt="John Smith">
-        <p>"Working with Gift is always a masterclass in clarity and communication."</p>
-        <span>- John Smith</span>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://via.placeholder.com/60x60/9b59b6/ffffff?text=AS" alt="Alice Smith">
-        <p>"Her ability to translate complex data into compelling narratives is exceptional."</p>
-        <span>- Alice Smith</span>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://via.placeholder.com/60x60/f39c12/ffffff?text=MB" alt="Mike Brown">
-        <p>"Gift's creative approach to data science sets her apart from the rest."</p>
-        <span>- Mike Brown</span>
+      <div class="carousel-track">
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=JD" alt="Jane Doe">
+          <p>"Gift is incredibly insightful and creative! She brings data and storytelling together beautifully."</p>
+          <span>- Jane Doe</span>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/a0845c/ffffff?text=JS" alt="John Smith">
+          <p>"Working with Gift is always a masterclass in clarity and communication."</p>
+          <span>- John Smith</span>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/d2b48c/ffffff?text=AS" alt="Alice Smith">
+          <p>"Her ability to translate complex data into compelling narratives is exceptional."</p>
+          <span>- Alice Smith</span>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=MB" alt="Mike Brown">
+          <p>"Gift's creative approach to data science sets her apart from the rest."</p>
+          <span>- Mike Brown</span>
+        </div>
+        <!-- Duplicate cards for infinite scroll -->
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=JD" alt="Jane Doe">
+          <p>"Gift is incredibly insightful and creative! She brings data and storytelling together beautifully."</p>
+          <span>- Jane Doe</span>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/a0845c/ffffff?text=JS" alt="John Smith">
+          <p>"Working with Gift is always a masterclass in clarity and communication."</p>
+          <span>- John Smith</span>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/d2b48c/ffffff?text=AS" alt="Alice Smith">
+          <p>"Her ability to translate complex data into compelling narratives is exceptional."</p>
+          <span>- Alice Smith</span>
+        </div>
+        <div class="testimonial-card">
+          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=MB" alt="Mike Brown">
+          <p>"Gift's creative approach to data science sets her apart from the rest."</p>
+          <span>- Mike Brown</span>
+        </div>
       </div>
     </div>
   </section>
@@ -132,30 +584,52 @@
       </div>
     </div>
     <button onclick="window.location.href='https://medium.com/@giftkalu'">Show More</button>
-  </div>
   </section>
 
   <section class="certificates fade-in-section">
     <h2>Certificates</h2>
     <div class="carousel reverse" id="certificates-container">
-      <div class="certificate-card">
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          Google Data Analytics
+      <div class="carousel-track">
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Google Data Analytics
+          </div>
         </div>
-      </div>
-      <div class="certificate-card">
-        <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          IBM Machine Learning
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #d2b48c 0%, #a0845c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            IBM Machine Learning
+          </div>
         </div>
-      </div>
-      <div class="certificate-card">
-        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          Creative Writing Workshop
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #8b4513 0%, #654321 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Creative Writing Workshop
+          </div>
         </div>
-      </div>
-      <div class="certificate-card">
-        <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
-          AWS Cloud Practitioner
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            AWS Cloud Practitioner
+          </div>
+        </div>
+        <!-- Duplicate cards for infinite scroll -->
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Google Data Analytics
+          </div>
+        </div>
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #d2b48c 0%, #a0845c 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            IBM Machine Learning
+          </div>
+        </div>
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #8b4513 0%, #654321 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            Creative Writing Workshop
+          </div>
+        </div>
+        <div class="certificate-card">
+          <div style="background: linear-gradient(135deg, #a0845c 0%, #8b4513 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold;">
+            AWS Cloud Practitioner
+          </div>
         </div>
       </div>
     </div>
@@ -165,15 +639,15 @@
     <h2>Favourite Books</h2>
     <div class="book-shelf">
       <div class="book-card">
-        <img src="https://via.placeholder.com/150x200/3498db/ffffff?text=Book+1" alt="Atomic Habits">
+        <img src="https://via.placeholder.com/150x200/8b4513/ffffff?text=Book+1" alt="Atomic Habits">
         <p>Atomic Habits by James Clear</p>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/150x200/e74c3c/ffffff?text=Book+2" alt="Deep Work">
+        <img src="https://via.placeholder.com/150x200/a0845c/ffffff?text=Book+2" alt="Deep Work">
         <p>Deep Work by Cal Newport</p>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/150x200/2ecc71/ffffff?text=Book+3" alt="Show Your Work">
+        <img src="https://via.placeholder.com/150x200/d2b48c/ffffff?text=Book+3" alt="Show Your Work">
         <p>Show Your Work by Austin Kleon</p>
       </div>
     </div>
@@ -198,7 +672,8 @@
       </a>
     </div>
   </section>
-<script>
+
+  <script>
     const abcdExpanded = document.getElementById('abcd-expanded');
     const phrases = [
       { letter: 'A', full: 'AI enthusiast' },
@@ -215,7 +690,7 @@
       let abcdText = '';
       let index = 0;
       const interval = setInterval(() => {
-        abcdText += `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrases[index].letter}</span> `;
+        abcdText += `<span style="color: #8b4513; font-weight: bold; font-size: 1.8rem;">${phrases[index].letter}</span> `;
         abcdExpanded.innerHTML = abcdText.trim();
         abcdExpanded.classList.add('fade-in');
         index++;
@@ -244,57 +719,15 @@
     function updateExpandedText(activeIndex, currentText) {
       let output = phrases.map((phrase, idx) => {
         if (idx < activeIndex) {
-          return `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>${phrase.full.slice(1)}`;
+          return `<span style="color: #8b4513; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>${phrase.full.slice(1)}`;
         } else if (idx === activeIndex) {
-          return `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>${currentText.slice(1)}`;
+          return `<span style="color: #8b4513; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>${currentText.slice(1)}`;
         } else {
-          return `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>`;
+          return `<span style="color: #8b4513; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>`;
         }
       });
       abcdExpanded.innerHTML = output.join(' • ');
       abcdExpanded.classList.add('fade-in');
-    }
-
-    // Smooth auto-scroll function
-    function autoScroll(container, reverse = false) {
-      if (!container) return;
-      
-      // Check if container has scrollable content
-      if (container.scrollWidth <= container.clientWidth) {
-        return;
-      }
-      
-      let scrollSpeed = 1;
-      let isPaused = false;
-      let direction = reverse ? -1 : 1;
-      
-      const scroll = () => {
-        if (isPaused) return;
-        
-        container.scrollLeft += direction * scrollSpeed;
-        
-        // Handle boundaries with smooth transitions
-        if (direction > 0) { // Scrolling right
-          if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
-            isPaused = true;
-            setTimeout(() => {
-              container.scrollLeft = 0;
-              isPaused = false;
-            }, 1500); // Pause for 1.5 seconds
-          }
-        } else { // Scrolling left
-          if (container.scrollLeft <= 0) {
-            isPaused = true;
-            setTimeout(() => {
-              container.scrollLeft = container.scrollWidth - container.clientWidth;
-              isPaused = false;
-            }, 1500); // Pause for 1.5 seconds
-          }
-        }
-      };
-      
-      // Start the smooth scrolling
-      setInterval(scroll, 50);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -311,355 +744,7 @@
         });
       }, { threshold: 0.1 });
       fadeInSections.forEach(section => observer.observe(section));
-
-      // Initialize auto-scroll with proper directions
-      setTimeout(() => {
-        const projects = document.getElementById('projects-container');
-        const testimonials = document.getElementById('testimonials-container');
-        const certificates = document.getElementById('certificates-container');
-        
-        if (projects) {
-          autoScroll(projects, false); // Projects scroll left to right
-        }
-        if (testimonials) {
-          autoScroll(testimonials, true); // Testimonials scroll right to left (reverse)
-        }
-        if (certificates) {
-          autoScroll(certificates, true); // Certificates scroll right to left (reverse)
-        }
-      }, 1000);
     });
   </script>
-<style>
-    :root {
-      --main-bg: #f8f9fa;
-      --text-dark: #2c3e50;
-      --accent: #3498db;
-      --white: #ffffff;
-      --secondary: #ecf0f1;
-      --light-gray: #95a5a6;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      color: var(--text-dark);
-      background-color: var(--main-bg);
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .navbar a:hover {
-      color: var(--accent);
-    }
-
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 1rem 2rem;
-      min-height: 100vh;
-      background-color: var(--main-bg);
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin: 1rem 0 0.5rem;
-      color: var(--text-dark);
-    }
-
-    .profile-pic {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    #abcd-expanded {
-      font-size: 1.5rem;
-      font-weight: bold;
-      font-style: italic;
-      color: #2980b9;
-      margin-top: 0.2rem;
-      opacity: 0;
-      transition: opacity 0.6s ease-in;
-    }
-
-    .fade-in {
-      opacity: 1 !important;
-    }
-
-    .fade-in-section {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-
-    .fade-in-section.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    section {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: var(--text-dark);
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .skills-list span {
-      background: var(--accent);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .carousel {
-      display: flex;
-      overflow-x: hidden;
-      gap: 1.5rem;
-      padding: 1rem 0;
-      position: relative;
-      width: 100%;
-    }
-
-    .carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .project-card, .certificate-card, .testimonial-card {
-      flex: 0 0 auto;
-      width: 300px;
-      height: 250px;
-      background: var(--white);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      position: relative;
-      transition: transform 0.3s ease;
-    }
-
-    .project-card:hover, .certificate-card:hover, .testimonial-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .project-card img, .certificate-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-      color: white;
-      width: 100%;
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .testimonial-card {
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      background: var(--white);
-    }
-
-    .testimonial-card img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-    }
-
-    .testimonial-card p {
-      font-style: italic;
-      margin-bottom: 1rem;
-      flex-grow: 1;
-    }
-
-    .testimonial-card span {
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .blogs #blogs-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .blog-preview {
-      background: var(--white);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .blog-preview h3 {
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .blog-preview a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .book-shelf {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .book-card {
-      text-align: center;
-      max-width: 200px;
-    }
-
-    .book-card img {
-      width: 150px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
-    }
-
-    .contact {
-      background: var(--white);
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact form {
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-
-    .contact input, .contact textarea {
-      width: 100%;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: 2px solid var(--secondary);
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-
-    .contact button {
-      background: var(--accent);
-      color: white;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .contact button:hover {
-      background: #2980b9;
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    .socials a {
-      color: var(--text-dark);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: color 0.3s;
-    }
-
-    .socials a:hover {
-      color: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      section {
-        padding: 2rem 1rem;
-      }
-      
-      .project-card, .certificate-card, .testimonial-card {
-        width: 250px;
-        height: 200px;
-      }
-    }
-  </style>
-
-
-
-
-
-
 </body>
 </html>
