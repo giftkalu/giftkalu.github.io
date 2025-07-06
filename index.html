@@ -122,6 +122,23 @@
       </div>
     </div>
   </section>
+  <section class="certificates">
+  <h2>Certificates</h2>
+  <div class="carousel reverse" id="certificates-container">
+    <div class="certificate-card">
+      <img src="assets/images/certificate1.jpg" alt="Certificate 1">
+      <p>Google Data Analytics</p>
+    </div>
+    <div class="certificate-card">
+      <img src="assets/images/certificate2.jpg" alt="Certificate 2">
+      <p>IBM Machine Learning</p>
+    </div>
+    <div class="certificate-card">
+      <img src="assets/images/certificate3.jpg" alt="Certificate 3">
+      <p>Creative Writing Workshop</p>
+    </div>
+  </div>
+</section>
 
   <section class="contact" id="contact">
   <h2>Contact Me</h2>
@@ -160,13 +177,23 @@
   function animateABCD() {
     abcdExpanded.textContent = phrases[index];
     abcdExpanded.classList.remove('fade-in');
-    void abcdExpanded.offsetWidth; // Trigger reflow to restart animation
+    void abcdExpanded.offsetWidth;
     abcdExpanded.classList.add('fade-in');
     index = (index + 1) % phrases.length;
   }
 
   setInterval(animateABCD, 2000);
   animateABCD();
+
+  // Autoscroll certificates
+  const certificateCarousel = document.getElementById('certificates-container');
+  let scrollAmount = 0;
+  setInterval(() => {
+    if (certificateCarousel.scrollLeft <= 0) {
+      scrollAmount = certificateCarousel.scrollWidth;
+    }
+    certificateCarousel.scrollLeft -= 1;
+  }, 20);
 </script>
 
 <style>
@@ -189,7 +216,50 @@
   .fade-in {
     opacity: 1 !important;
   }
+
+  .certificates {
+    padding: 3rem 1rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .carousel.reverse {
+    display: flex;
+    flex-direction: row-reverse;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    scroll-behavior: smooth;
+  }
+
+  .certificate-card {
+    flex: 0 0 auto;
+    width: 250px;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .certificate-card:hover {
+    transform: scale(1.05);
+  }
+
+  .certificate-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .certificate-card p {
+    padding: 0.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+  }
 </style>
+
 
 
 </body>
