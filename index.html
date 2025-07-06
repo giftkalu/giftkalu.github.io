@@ -195,15 +195,28 @@
   animateABCD();
 
   // Autoscroll certificates
-  const certificateCarousel = document.getElementById('certificates-container');
-  let scrollAmount = 0;
-  setInterval(() => {
-    if (certificateCarousel.scrollLeft <= 0) {
-      scrollAmount = certificateCarousel.scrollWidth;
-    }
-    certificateCarousel.scrollLeft -= 1;
-  }, 20);
+  const autoScroll = (container, reverse = false) => {
+    let direction = reverse ? -1 : 1;
+    setInterval(() => {
+      container.scrollLeft += direction;
+      if (reverse && container.scrollLeft <= 0) {
+        container.scrollLeft = container.scrollWidth;
+      } else if (!reverse && container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+        container.scrollLeft = 0;
+      }
+    }, 30);
+  };
 
+  document.addEventListener("DOMContentLoaded", () => {
+    const certs = document.getElementById('certificates-container');
+    const projects = document.getElementById('projects-container');
+    const books = document.getElementById('books-container');
+    if (certs) autoScroll(certs, true);
+    if (projects) autoScroll(projects);
+    if (books) autoScroll(books);
+  });
+
+  // Fade-in sections on scroll
   const fadeInSections = document.querySelectorAll('.fade-in-section');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -215,7 +228,6 @@
 
   fadeInSections.forEach(section => observer.observe(section));
 </script>
-
 <style>
   #abcd {
     font-size: 1.2rem;
