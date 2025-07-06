@@ -297,16 +297,41 @@
       box-shadow: 0 8px 20px rgba(139, 69, 19, 0.2);
     }
 
-    .book-shelf {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
+    .books-carousel {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .book-card {
+    .books-carousel h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
-      max-width: 200px;
+      color: var(--text-dark);
+    }
+
+    /* Remove the old .book-shelf styles and replace with carousel */
+    .books-carousel .carousel {
+      display: flex;
+      overflow: hidden;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      position: relative;
+      width: 100%;
+    }
+
+    .books-carousel .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      animation: scroll-infinite 25s linear infinite;
+      width: fit-content;
+    }
+
+    /* Book card styles - updated for carousel */
+    .book-card {
+      flex: 0 0 auto;
+      width: 200px;
+      text-align: center;
       background: var(--white);
       padding: 1.5rem;
       border-radius: 15px;
@@ -317,15 +342,40 @@
 
     .book-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
     }
 
     .book-card img {
-      width: 150px;
-      height: 200px;
+      width: 120px;
+      height: 160px;
       object-fit: cover;
       border-radius: 10px;
-      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
       margin-bottom: 1rem;
+    }
+
+    .book-card p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      line-height: 1.4;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .book-card {
+        width: 160px;
+        padding: 1rem;
+      }
+      
+      .book-card img {
+        width: 100px;
+        height: 130px;
+      }
+      
+      .books-carousel .carousel-track {
+        animation-duration: 20s;
+      }
     }
 
     .contact {
@@ -635,20 +685,79 @@
     </div>
   </section>
 
-  <section class="books fade-in-section">
-    <h2>Favourite Books</h2>
-    <div class="book-shelf">
-      <div class="book-card">
-        <img src="https://via.placeholder.com/150x200/8b4513/ffffff?text=Book+1" alt="Atomic Habits">
-        <p>Atomic Habits by James Clear</p>
-      </div>
-      <div class="book-card">
-        <img src="https://via.placeholder.com/150x200/a0845c/ffffff?text=Book+2" alt="Deep Work">
-        <p>Deep Work by Cal Newport</p>
-      </div>
-      <div class="book-card">
-        <img src="https://via.placeholder.com/150x200/d2b48c/ffffff?text=Book+3" alt="Show Your Work">
-        <p>Show Your Work by Austin Kleon</p>
+  <section class="books-carousel fade-in-section">
+    <h2>Books Recommendations(They're all really cool!)</h2>
+    <div class="carousel" id="books-container">
+      <div class="carousel-track">
+        <!-- Original books -->
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/8b4513/ffffff?text=Book+1" alt="Atomic Habits">
+          <p>Atomic Habits by James Clear</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/a0845c/ffffff?text=Book+2" alt="Deep Work">
+          <p>Deep Work by Cal Newport</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/d2b48c/ffffff?text=Book+3" alt="Show Your Work">
+          <p>Show Your Work by Austin Kleon</p>
+        </div>
+        
+        <!-- Add more books here -->
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/8b4513/ffffff?text=Book+4" alt="The Lean Startup">
+          <p>The Lean Startup by Eric Ries</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/a0845c/ffffff?text=Book+5" alt="Thinking Fast and Slow">
+          <p>Thinking, Fast and Slow by Daniel Kahneman</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/d2b48c/ffffff?text=Book+6" alt="The Power of Now">
+          <p>The Power of Now by Eckhart Tolle</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/8b4513/ffffff?text=Book+7" alt="Sapiens">
+          <p>Sapiens by Yuval Noah Harari</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/a0845c/ffffff?text=Book+8" alt="The 7 Habits">
+          <p>The 7 Habits of Highly Effective People by Stephen Covey</p>
+        </div>
+        
+        <!-- Duplicate cards for infinite scroll effect -->
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/8b4513/ffffff?text=Book+1" alt="Atomic Habits">
+          <p>Atomic Habits by James Clear</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/a0845c/ffffff?text=Book+2" alt="Deep Work">
+          <p>Deep Work by Cal Newport</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/d2b48c/ffffff?text=Book+3" alt="Show Your Work">
+          <p>Show Your Work by Austin Kleon</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/8b4513/ffffff?text=Book+4" alt="The Lean Startup">
+          <p>The Lean Startup by Eric Ries</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/a0845c/ffffff?text=Book+5" alt="Thinking Fast and Slow">
+          <p>Thinking, Fast and Slow by Daniel Kahneman</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/d2b48c/ffffff?text=Book+6" alt="The Power of Now">
+          <p>The Power of Now by Eckhart Tolle</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/8b4513/ffffff?text=Book+7" alt="Sapiens">
+          <p>Sapiens by Yuval Noah Harari</p>
+        </div>
+        <div class="book-card">
+          <img src="https://via.placeholder.com/120x160/a0845c/ffffff?text=Book+8" alt="The 7 Habits">
+          <p>The 7 Habits of Highly Effective People by Stephen Covey</p>
+        </div>
       </div>
     </div>
   </section>
