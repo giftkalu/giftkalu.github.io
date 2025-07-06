@@ -186,210 +186,237 @@
   </div>
 </section>
 <script>
-const abcdExpanded = document.getElementById('abcd-expanded');
+        const abcdExpanded = document.getElementById('abcd-expanded');
+        const phrases = [
+            { letter: 'A', full: 'AI enthusiast' },
+            { letter: 'B', full: 'Builder' },
+            { letter: 'C', full: 'Creative Writing' },
+            { letter: 'D', full: 'Data Science and Machine Learning' }
+        ];
+        let displayText = '';
+        let currentPhrase = 0;
+        let typed = '';
+        let letterInterval;
 
-const phrases = [
-{ letter: 'A', full: 'AI enthusiast' },
-{ letter: 'B', full: 'Builder' },
-{ letter: 'C', full: 'Creative Writing' },
-{ letter: 'D', full: 'Data Science and Machine Learning' }
-];
+        function revealABCDLetters() {
+            let abcdText = '';
+            let index = 0;
+            const interval = setInterval(() => {
+                abcdText += `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrases[index].letter}</span> `;
+                abcdExpanded.innerHTML = abcdText.trim();
+                abcdExpanded.classList.add('fade-in');
+                index++;
+                if (index === phrases.length) {
+                    clearInterval(interval);
+                    setTimeout(() => typeFullPhrase(0), 500);
+                }
+            }, 500);
+        }
 
-let expandedOutput = ['', '', '', ''];
-function typeABCDInLine(i) {
-if (i >= phrases.length) return;
-let j = 1;
-expandedOutput[i] = phrases[i].letter;
+        function typeFullPhrase(index) {
+            if (index >= phrases.length) return;
+            let i = 1;
+            typed = phrases[index].letter;
+            letterInterval = setInterval(() => {
+                typed += phrases[index].full[i];
+                updateExpandedText(index, typed);
+                i++;
+                if (i === phrases[index].full.length) {
+                    clearInterval(letterInterval);
+                    setTimeout(() => typeFullPhrase(index + 1), 800);
+                }
+            }, 80);
+        }
 
-const typing = setInterval(() => {
-expandedOutput[i] = phrases[i].full.slice(0, j + 1);
-renderABCDLine();
-j++;
-if (j >= phrases[i].full.length) {
-clearInterval(typing);
-setTimeout(() => typeABCDInLine(i + 1), 500);
-}
-}, 80);
-}
+        function updateExpandedText(activeIndex, currentText) {
+            let output = phrases.map((phrase, idx) => {
+                if (idx < activeIndex) {
+                    return `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>${phrase.full.slice(1)}`;
+                } else if (idx === activeIndex) {
+                    return `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>${currentText.slice(1)}`;
+                } else {
+                    return `<span style="color: #e74c3c; font-weight: bold; font-size: 1.8rem;">${phrase.letter}</span>`;
+                }
+            });
+            abcdExpanded.innerHTML = output.join(' • ');
+            abcdExpanded.classList.add('fade-in');
+        }
 
-function renderABCDLine() {
-const joined = phrases.map((p, idx) => {
-const content = expandedOutput[idx] || p.letter;
-return `<strong>${content[0]}</strong><em>${content.slice(1)}</em>`;
-}).join(' • ');
-abcdExpanded.innerHTML = joined;
-abcdExpanded.classList.add('fade-in');
-}
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start with revealing ABCD letters first
+            setTimeout(() => revealABCDLetters(), 500);
+            
+            const fadeInSections = document.querySelectorAll('.fade-in-section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            fadeInSections.forEach(section => observer.observe(section));
 
-document.addEventListener('DOMContentLoaded', () => {
-typeABCDInLine(0);
+            const autoScroll = (container, reverse = false) => {
+                let direction = reverse ? -1 : 1;
+                setInterval(() => {
+                    container.scrollLeft += direction;
+                    if (reverse && container.scrollLeft <= 0) {
+                        container.scrollLeft = container.scrollWidth;
+                    } else if (!reverse && container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+                        container.scrollLeft = 0;
+                    }
+                }, 30);
+            };
 
-const fadeInSections = document.querySelectorAll('.fade-in-section');
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('visible');
-}
-});
-}, { threshold: 0.1 });
-
-fadeInSections.forEach(section => observer.observe(section));
-
-const autoScroll = (container, reverse = false) => {
-let direction = reverse ? -1 : 1;
-setInterval(() => {
-container.scrollLeft += direction;
-if (reverse && container.scrollLeft <= 0) {
-container.scrollLeft = container.scrollWidth;
-} else if (!reverse && container.scrollLeft >= container.scrollWidth - container.clientWidth) {
-container.scrollLeft = 0;
-}
-}, 30);
-};
-
-const certs = document.getElementById('certificates-container');
-const projects = document.getElementById('projects-container');
-const books = document.getElementById('books-container');
-if (certs) autoScroll(certs, true);
-if (projects) autoScroll(projects);
-if (books) autoScroll(books);
-});
-</script>
-
+            const certs = document.getElementById('certificates-container');
+            const projects = document.getElementById('projects-container');
+            const books = document.getElementById('books-container');
+            if (certs) autoScroll(certs, true);
+            if (projects) autoScroll(projects);
+            if (books) autoScroll(books);
+        });
+    </script>
 <style>
-#abcd-expanded {
-font-size: 1.5rem;
-font-style: italic;
-color: var(--text-dark);
-margin-top: 0.2rem;
-opacity: 0;
-transition: opacity 0.6s ease-in;
-}
+        :root {
+            --main-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --accent: #3498db;
+            --white: #ffffff;
+        }
 
-.fade-in {
-opacity: 1 !important;
-}
+        #abcd-expanded {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-style: italic;
+            color: #2980b9; /* Beautiful blue color */
+            margin-top: 0.2rem;
+            opacity: 0;
+            transition: opacity 0.6s ease-in;
+        }
 
-.fade-in-section {
-opacity: 0;
-transform: translateY(40px);
-transition: opacity 1s ease-out, transform 1s ease-out;
-}
+        .fade-in {
+            opacity: 1 !important;
+        }
 
-.fade-in-section.visible {
-opacity: 1;
-transform: none;
-}
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
 
-.hero {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 6rem 1rem 2rem;
-min-height: 100vh;
-background-color: var(--main-bg);
-}
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: none;
+        }
 
-.hero h1 {
-font-size: 3rem;
-margin: 1rem 0 0.5rem;
-color: var(--text-dark);
-}
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem 2rem;
+            min-height: 100vh;
+            background-color: var(--main-bg);
+        }
 
-.profile-pic {
-width: 140px;
-height: 140px;
-border-radius: 50%;
-object-fit: cover;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+        .hero h1 {
+            font-size: 3rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--text-dark);
+        }
 
-.carousel {
-display: flex;
-overflow-x: auto;
-gap: 1rem;
-padding: 1rem 0;
-scroll-behavior: smooth;
-position: relative;
-}
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-.carousel::-webkit-scrollbar {
-display: none;
-}
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 1rem 0;
+            scroll-behavior: smooth;
+            position: relative;
+        }
 
-.project-card {
-flex: 0 0 auto;
-width: 280px;
-height: 220px;
-background: var(--white);
-border-radius: 10px;
-overflow: hidden;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-position: relative;
-transition: transform 0.3s ease;
-}
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
 
-.project-card:hover {
-transform: scale(1.03);
-}
+        .project-card {
+            flex: 0 0 auto;
+            width: 280px;
+            height: 220px;
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
 
-.project-card img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
+        .project-card:hover {
+            transform: scale(1.03);
+        }
 
-.project-card .overlay {
-position: absolute;
-bottom: 0;
-background: rgba(0, 0, 0, 0.7);
-color: #fff;
-width: 100%;
-text-align: center;
-padding: 0.5rem;
-font-size: 0.9rem;
-}
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.carousel-nav {
-position: absolute;
-top: 50%;
-width: 100%;
-display: flex;
-justify-content: space-between;
-transform: translateY(-50%);
-pointer-events: none;
-}
+        .project-card .overlay {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
 
-.carousel-nav button {
-pointer-events: all;
-background: rgba(255,255,255,0.8);
-border: none;
-padding: 0.5rem 1rem;
-font-size: 1.2rem;
-cursor: pointer;
-border-radius: 5px;
-margin: 0 0.5rem;
-transition: background 0.3s;
-}
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
 
-.carousel-nav button:hover {
-background: var(--accent);
-color: #fff;
-}
+        .carousel-nav button {
+            pointer-events: all;
+            background: rgba(255,255,255,0.8);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 0.5rem;
+            transition: background 0.3s;
+        }
 
-@media (max-width: 600px) {
-.project-card {
-width: 220px;
-height: 180px;
-}
+        .carousel-nav button:hover {
+            background: var(--accent);
+            color: #fff;
+        }
 
-.hero h1 {
-font-size: 2.2rem;
-}
-}
-</style>
+        @media (max-width: 600px) {
+            .project-card {
+                width: 220px;
+                height: 180px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
 
 
 
