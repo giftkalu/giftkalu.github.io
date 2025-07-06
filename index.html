@@ -189,28 +189,53 @@
 <script>
   const abcd = document.getElementById('abcd');
   const abcdExpanded = document.getElementById('abcd-expanded');
+
   const phrases = [
-    'AI enthusiast',
-    'Builder',
-    'Creative Writing',
-    'Data Science and Machine Learning'
+    { letter: 'A', full: 'AI enthusiast' },
+    { letter: 'B', full: 'Builder' },
+    { letter: 'C', full: 'Creative Writing' },
+    { letter: 'D', full: 'Data Science and Machine Learning' }
   ];
 
-  let index = 0;
+  abcd.innerHTML = '<em>A B C D</em>';
 
-  function animateABCD() {
-    abcdExpanded.textContent = phrases[index];
-    abcdExpanded.classList.remove('fade-in');
-    void abcdExpanded.offsetWidth;
-    abcdExpanded.classList.add('fade-in');
-    index = (index + 1) % phrases.length;
+  let currentIndex = 0;
+  let results = [];
+
+  function typeFullText() {
+    if (currentIndex >= phrases.length) {
+      abcdExpanded.innerHTML = results
+        .map(({ letter, full }) => `<strong>${letter}</strong>${full.slice(1)}`)
+        .join(' • ');
+      abcdExpanded.classList.add('fade-in');
+      return;
+    }
+
+    const phrase = phrases[currentIndex];
+    let typed = '';
+    let i = 0;
+
+    const interval = setInterval(() => {
+      typed += phrase.full[i];
+      abcdExpanded.innerHTML = results
+        .map(({ letter, full }) => `<strong>${letter}</strong>${full.slice(1)}`)
+        .join(' • ') +
+        (results.length ? ' • ' : '') + `<strong>${phrase.letter}</strong>${typed.slice(1)}`;
+
+      i++;
+      if (i === phrase.full.length) {
+        clearInterval(interval);
+        results.push(phrase);
+        currentIndex++;
+        setTimeout(typeFullText, 800);
+      }
+    }, 80);
   }
 
-  setInterval(animateABCD, 2000);
-  animateABCD();
-
-  // Scroll-triggered fade-in
   document.addEventListener('DOMContentLoaded', () => {
+    typeFullText();
+
+    // Scroll-triggered fade-in
     const fadeInSections = document.querySelectorAll('.fade-in-section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
