@@ -197,43 +197,59 @@
     { letter: 'D', full: 'Data Science and Machine Learning' }
   ];
 
-  abcd.innerHTML = '<em>A B C D</em>';
+  let displayText = '';
+  let currentPhrase = 0;
+  let typed = '';
+  let letterInterval;
 
-  let currentIndex = 0;
-  let results = [];
-
-  function typeFullText() {
-    if (currentIndex >= phrases.length) {
-      abcdExpanded.innerHTML = results
-        .map(({ letter, full }) => `<strong>${letter}</strong>${full.slice(1)}`)
-        .join(' • ');
-      abcdExpanded.classList.add('fade-in');
-      return;
-    }
-
-    const phrase = phrases[currentIndex];
-    let typed = '';
-    let i = 0;
+  function revealABCDLetters() {
+    let abcdText = '';
+    let index = 0;
 
     const interval = setInterval(() => {
-      typed += phrase.full[i];
-      abcdExpanded.innerHTML = results
-        .map(({ letter, full }) => `<strong>${letter}</strong>${full.slice(1)}`)
-        .join(' • ') +
-        (results.length ? ' • ' : '') + `<strong>${phrase.letter}</strong>${typed.slice(1)}`;
+      abcdText += `<em>${phrases[index].letter}</em> `;
+      abcd.innerHTML = abcdText.trim();
+      index++;
 
-      i++;
-      if (i === phrase.full.length) {
+      if (index === phrases.length) {
         clearInterval(interval);
-        results.push(phrase);
-        currentIndex++;
-        setTimeout(typeFullText, 800);
+        setTimeout(() => typeFullPhrase(0), 500);
+      }
+    }, 500);
+  }
+
+  function typeFullPhrase(index) {
+    if (index >= phrases.length) return;
+
+    let i = 1;
+    typed = phrases[index].letter;
+    letterInterval = setInterval(() => {
+      typed += phrases[index].full[i];
+      updateExpandedText(index, typed);
+      i++;
+      if (i === phrases[index].full.length) {
+        clearInterval(letterInterval);
+        setTimeout(() => typeFullPhrase(index + 1), 800);
       }
     }, 80);
   }
 
+  function updateExpandedText(activeIndex, currentText) {
+    let output = phrases.map((phrase, idx) => {
+      if (idx < activeIndex) {
+        return `<strong>${phrase.letter}</strong>${phrase.full.slice(1)}`;
+      } else if (idx === activeIndex) {
+        return `<strong>${phrase.letter}</strong>${currentText.slice(1)}`;
+      } else {
+        return `<strong>${phrase.letter}</strong>`;
+      }
+    });
+    abcdExpanded.innerHTML = output.join(' • ');
+    abcdExpanded.classList.add('fade-in');
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    typeFullText();
+    revealABCDLetters();
 
     const fadeInSections = document.querySelectorAll('.fade-in-section');
     const observer = new IntersectionObserver(entries => {
@@ -409,6 +425,7 @@
     }
   }
 </style>
+
 
 
 
