@@ -502,6 +502,187 @@
       border-radius: 8px;
       margin: 1rem 0;
     }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--overlay);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal Container */
+    .modal-container {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(139, 69, 19, 0.3);
+      border: 2px solid var(--brown-light);
+      transform: scale(0.7) translateY(-50px);
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Close Button */
+    .close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .close-button:hover {
+      color: var(--accent);
+      background: var(--brown-light);
+    }
+
+    /* Modal Content */
+    .modal-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .modal-message {
+      font-size: 1.1rem;
+      color: var(--brown-dark);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* Action Buttons */
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .modal-button {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 120px;
+      justify-content: center;
+    }
+
+    .modal-button.primary {
+      background: linear-gradient(135deg, var(--brown-medium) 0%, var(--brown-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    .modal-button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    }
+
+    .modal-button.secondary {
+      background: var(--white);
+      color: var(--accent);
+      border: 2px solid var(--brown-light);
+    }
+
+    .modal-button.secondary:hover {
+      background: var(--brown-light);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .modal-container {
+        padding: 2rem;
+        margin: 1rem;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-button {
+        width: 100%;
+      }
+    }
+
+    /* Demo Styles (remove these in your actual implementation) */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--main-bg);
+      padding: 2rem;
+      margin: 0;
+    }
+
+    .demo-navbar {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .demo-navbar a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .demo-navbar a:hover {
+      background: var(--brown-light);
+      color: white;
+    }
+
+    .demo-content {
+      text-align: center;
+      padding: 2rem;
+    }
 
     /* Mobile-first responsive design */
     @media (max-width: 768px) {
@@ -1058,7 +1239,31 @@
 </a>
     </div>
   </section>
-
+  <div class="modal-overlay" id="resumeModal">
+  <div class="modal-container">
+    <button class="close-button" onclick="closeResumeModal()">&times;</button>
+    
+    <span class="modal-icon">📄</span>
+    
+    <h2 class="modal-title">View Gift's Resume</h2>
+    
+    <p class="modal-message">
+      You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
+    </p>
+    
+    <div class="modal-actions">
+      <a href="https://drive.google.com/file/d/YOUR_GOOGLE_DRIVE_FILE_ID/view" 
+         target="_blank" 
+         class="modal-button primary"
+         onclick="closeResumeModal()">
+        📖 View Resume
+      </a>
+      <button class="modal-button secondary" onclick="closeResumeModal()">
+        ❌ Cancel
+      </button>
+    </div>
+  </div>
+</div>
   <script>
     const abcdExpanded = document.getElementById('abcd-expanded');
     const phrases = [
