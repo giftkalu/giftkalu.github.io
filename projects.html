@@ -614,7 +614,7 @@
   <nav class="navbar">
     <a href="index.html">Home</a>
     <a href="projects.html" class="active">Projects</a>
-    <a href="resume.html">Resume</a>
+    <a href="#" onclick="showResumeModal()">Resume</a>
     <a href="writing.html">Writing</a>
     <a href="index.html#contact">Contact</a>
   </nav>
@@ -1047,6 +1047,33 @@ window.addEventListener('popstate', function(event) {
     }
   } else {
     showAllProjects();
+  }
+});
+  // Show resume modal
+function showResumeModal() {
+  const modal = document.getElementById('resumeModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close resume modal
+function closeResumeModal() {
+  const modal = document.getElementById('resumeModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside
+document.getElementById('resumeModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeResumeModal();
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeResumeModal();
   }
 });
   </script>
