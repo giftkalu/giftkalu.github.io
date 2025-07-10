@@ -736,6 +736,113 @@
       searchInput.value = '';
       displayProjects(projects);
     }
+    // Add this to your existing projects.html JavaScript section
+
+// Function to get URL parameters
+function getUrlParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+// Function to update URL without page reload
+function updateUrl(projectId) {
+  const newUrl = projectId ? `${window.location.pathname}?project=${projectId}` : window.location.pathname;
+  window.history.pushState({projectId}, '', newUrl);
+}
+
+// Modified showProjectDetail function
+function showProjectDetail(projectId) {
+  const project = projects.find(p => p.id === projectId);
+  if (!project) return;
+
+  const detailContent = document.getElementById('project-detail-content');
+  detailContent.innerHTML = `
+    <div class="project-detail-header">
+      <div>
+        <h1 class="project-detail-title">${project.title}</h1>
+        <div class="project-skills">
+          ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="${project.githubLink}" target="_blank" class="project-link">
+          📚 GitHub
+        </a>
+        <a href="${project.liveLink}" target="_blank" class="project-link">
+          🚀 Live App
+        </a>
+      </div>
+    </div>
+    
+    <div class="project-section">
+      <h3>Problem Statement</h3>
+      <p>${project.problemStatement}</p>
+    </div>
+    
+    <div class="project-section">
+      <h3>Solution</h3>
+      <p>${project.solution}</p>
+    </div>
+    
+    <div class="project-section">
+      <h3>Project Visualizations</h3>
+      <div class="project-images">
+        ${project.images.map(image => `
+          <div class="project-image-item">
+            <img src="${image.src}" alt="${image.caption}">
+            <div class="project-image-caption">${image.caption}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  
+  // Hide projects grid and show detail
+  projectsGrid.style.display = 'none';
+  noResults.style.display = 'none';
+  document.getElementById('project-detail').classList.add('active');
+  
+  // Update URL
+  updateUrl(projectId);
+  
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
+
+// Modified showAllProjects function
+function showAllProjects() {
+  document.getElementById('project-detail').classList.remove('active');
+  projectsGrid.style.display = 'grid';
+  searchInput.value = '';
+  displayProjects(projects);
+  
+  // Update URL to remove project parameter
+  updateUrl(null);
+}
+
+// Check for project parameter on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const projectId = getUrlParameter('project');
+  if (projectId) {
+    const projectIdNum = parseInt(projectId);
+    if (projects.find(p => p.id === projectIdNum)) {
+      showProjectDetail(projectIdNum);
+    }
+  }
+});
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', function(event) {
+  const projectId = getUrlParameter('project');
+  if (projectId) {
+    const projectIdNum = parseInt(projectId);
+    if (projects.find(p => p.id === projectIdNum)) {
+      showProjectDetail(projectIdNum);
+    }
+  } else {
+    showAllProjects();
+  }
+});
   </script>
 </body>
 </html>
