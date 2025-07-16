@@ -593,6 +593,25 @@
         grid-template-columns: 1fr;
       }
     }
+    .scroll-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.scroll-indicator.show {
+  opacity: 1;
+  visibility: visible;
+}
 
     @media (max-width: 480px) {
       .search-bar {
@@ -608,6 +627,9 @@
         padding: 1.5rem;
       }
     }
+    html {
+  scroll-behavior: smooth;
+}
   </style>
 </head>
 <body>
@@ -616,7 +638,7 @@
     <a href="projects.html" class="active">Projects</a>
     <a href="#" onclick="showResumeModal()">Resume</a>
     <a href="writing.html">Writing</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="#" onclick="navigateToContact()">Contact</a>
   </nav>
 
   <div class="main-content">
@@ -1076,6 +1098,54 @@ document.addEventListener('keydown', function(e) {
     closeResumeModal();
   }
 });
+    // Function to navigate to contact section
+function navigateToContact() {
+  // Check if we're on the homepage
+  const isHomepage = window.location.pathname.includes('index.html') || 
+                    window.location.pathname === '/' || 
+                    window.location.pathname.endsWith('/');
+  
+  if (isHomepage) {
+    // We're on homepage, just scroll to contact
+    scrollToContact();
+  } else {
+    // We're on a different page, navigate to homepage first
+    window.location.href = 'index.html#contact';
+  }
+}
+
+// Function to scroll to contact section
+function scrollToContact() {
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    contactSection.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+}
+
+// Handle page load with hash (for homepage)
+window.addEventListener('load', function() {
+  if (window.location.hash === '#contact') {
+    setTimeout(() => {
+      scrollToContact();
+    }, 100);
+  }
+});
+    function scrollToContact() {
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+    const elementPosition = contactSection.offsetTop;
+    const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+}
   </script>
 </body>
 </html>
