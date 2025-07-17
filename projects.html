@@ -1003,6 +1003,7 @@ function showProjectDetail(projectId) {
   // Hide projects grid and show detail
   projectsGrid.style.display = 'none';
   noResults.style.display = 'none';
+  document.querySelector('.search-container').style.display = 'none';
   document.getElementById('project-detail').classList.add('active');
   
   // Update URL
@@ -1016,6 +1017,7 @@ function showProjectDetail(projectId) {
 function showAllProjects() {
   document.getElementById('project-detail').classList.remove('active');
   projectsGrid.style.display = 'grid';
+  document.querySelector('.search-container').style.display = 'block';
   searchInput.value = '';
   displayProjects(projects);
   
