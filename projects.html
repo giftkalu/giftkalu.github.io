@@ -870,7 +870,7 @@
             <h3 class="project-title">${project.title}</h3>
             <p class="project-description">${project.description}</p>
             <div class="project-skills">
-              ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+              ${project.skills.slice(0, 3).map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
             </div>
           </div>
         </div>
