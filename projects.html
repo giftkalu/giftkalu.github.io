@@ -1119,7 +1119,11 @@ window.addEventListener('load', function() {
     });
   }
 }
-    document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Immediately scroll to top
+  window.scrollTo(0, 0);
+  
   // Add a small delay to ensure all content is rendered
   setTimeout(function() {
     document.body.classList.add('loaded');
@@ -1128,7 +1132,14 @@ window.addEventListener('load', function() {
 
 // Also trigger on window load as a fallback
 window.addEventListener('load', function() {
+  // Ensure we're at the top
+  window.scrollTo(0, 0);
   document.body.classList.add('loaded');
+});
+
+// Force scroll to top on page refresh/navigation
+window.addEventListener('beforeunload', function() {
+  window.scrollTo(0, 0);
 });
   </script>
 </body>
