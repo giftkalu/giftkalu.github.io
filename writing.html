@@ -336,7 +336,108 @@
       color: var(--accent);
       background: var(--brown-light);
     }
+     .modal-container {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(139, 69, 19, 0.3);
+      border: 2px solid var(--brown-light);
+      transform: scale(0.7) translateY(-50px);
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
 
+    .modal-overlay.active .modal-container {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Close Button */
+    .close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .close-button:hover {
+      color: var(--accent);
+      background: var(--brown-light);
+    }
+
+    /* Modal Content */
+    .modal-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .modal-message {
+      font-size: 1.1rem;
+      color: var(--brown-dark);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }.modal-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .modal-button {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 120px;
+      justify-content: center;
+    }
+
+    .modal-button.primary {
+      background: linear-gradient(135deg, var(--brown-medium) 0%, var(--brown-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+    }
+
+    .modal-button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    }
+
+    .modal-button.secondary {
+      background: var(--white);
+      color: var(--accent);
+      border: 2px solid var(--brown-light);
+    }
+
+    .modal-button.secondary:hover {
+      background: var(--brown-light);
+      color: white;
+      transform: translateY(-2px);
+    }
     /* Responsive Design */
     @media (max-width: 768px) {
       .navbar {
