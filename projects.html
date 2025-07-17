@@ -31,6 +31,19 @@
       background: var(--main-bg);
       position: relative;
       overflow-x: hidden;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     body::before {
@@ -375,13 +388,14 @@
       background: var(--brown-light);
       color: white;
     }
+
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--overlay);
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(5px);
       display: flex;
       justify-content: center;
@@ -397,7 +411,6 @@
       visibility: visible;
     }
 
-    /* Modal Container */
     .modal-container {
       background: var(--white);
       border-radius: 20px;
@@ -416,7 +429,6 @@
       transform: scale(1) translateY(0);
     }
 
-    /* Close Button */
     .close-button {
       position: absolute;
       top: 1rem;
@@ -436,7 +448,6 @@
       background: var(--brown-light);
     }
 
-    /* Modal Content */
     .modal-icon {
       font-size: 4rem;
       margin-bottom: 1rem;
@@ -457,7 +468,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Action Buttons */
     .modal-actions {
       display: flex;
       gap: 1rem;
@@ -504,57 +514,28 @@
       transform: translateY(-2px);
     }
 
-    /* Responsive Design */
-    @media (max-width: 480px) {
-      .modal-container {
-        padding: 2rem;
-        margin: 1rem;
-      }
-
-      .modal-actions {
-        flex-direction: column;
-      }
-
-      .modal-button {
-        width: 100%;
-      }
-    }
-
-    /* Demo Styles (remove these in your actual implementation) */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--main-bg);
-      padding: 2rem;
-      margin: 0;
-    }
-
-    .demo-navbar {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 1rem 2rem;
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .demo-navbar a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
+    .scroll-indicator {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
       padding: 0.5rem 1rem;
-      border-radius: 8px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      opacity: 0;
+      visibility: hidden;
       transition: all 0.3s ease;
     }
 
-    .demo-navbar a:hover {
-      background: var(--brown-light);
-      color: white;
+    .scroll-indicator.show {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .demo-content {
-      text-align: center;
-      padding: 2rem;
+    html {
+      scroll-behavior: smooth;
     }
 
     /* Mobile Responsive */
@@ -592,26 +573,20 @@
       .project-images {
         grid-template-columns: 1fr;
       }
-    }
-    .scroll-indicator {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
 
-.scroll-indicator.show {
-  opacity: 1;
-  visibility: visible;
-}
+      .modal-container {
+        padding: 2rem;
+        margin: 1rem;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-button {
+        width: 100%;
+      }
+    }
 
     @media (max-width: 480px) {
       .search-bar {
@@ -627,9 +602,6 @@
         padding: 1.5rem;
       }
     }
-    html {
-  scroll-behavior: smooth;
-}
   </style>
 </head>
 <body>
@@ -669,32 +641,34 @@
       </div>
     </div>
   </div>
+
   <!-- Resume Confirmation Modal -->
-<div class="modal-overlay" id="resumeModal">
-  <div class="modal-container">
-    <button class="close-button" onclick="closeResumeModal()">&times;</button>
-    
-    <span class="modal-icon">📄</span>
-    
-    <h2 class="modal-title">View Gift's Resume</h2>
-    
-    <p class="modal-message">
-      You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
-    </p>
-    
-    <div class="modal-actions">
-      <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
-         target="_blank" 
-         class="modal-button primary"
-         onclick="closeResumeModal()">
-        📖 View Resume
-      </a>
-      <button class="modal-button secondary" onclick="closeResumeModal()">
-        ❌ Cancel
-      </button>
+  <div class="modal-overlay" id="resumeModal">
+    <div class="modal-container">
+      <button class="close-button" onclick="closeResumeModal()">&times;</button>
+      
+      <span class="modal-icon">📄</span>
+      
+      <h2 class="modal-title">View Gift's Resume</h2>
+      
+      <p class="modal-message">
+        You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
+      </p>
+      
+      <div class="modal-actions">
+        <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
+           target="_blank" 
+           class="modal-button primary"
+           onclick="closeResumeModal()">
+          📖 View Resume
+        </a>
+        <button class="modal-button secondary" onclick="closeResumeModal()">
+          ❌ Cancel
+        </button>
+      </div>
     </div>
   </div>
-</div>
+
   <script>
     // Project data
     const projects = [
@@ -802,350 +776,409 @@
       }
     ];
 
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    const suggestions = document.getElementById('suggestions');
-    const projectsGrid = document.getElementById('projectsGrid');
-    const noResults = document.getElementById('noResults');
+  // Search functionality
+const searchInput = document.getElementById('searchInput');
+const suggestions = document.getElementById('suggestions');
+const projectsGrid = document.getElementById('projectsGrid');
+const noResults = document.getElementById('noResults');
+const projectDetail = document.getElementById('project-detail');
 
-    // Get all unique skills for suggestions
-    const allSkills = [...new Set(projects.flatMap(p => p.skills))];
-    const allTitles = projects.map(p => p.title);
-    const searchOptions = [...allSkills, ...allTitles];
+// Get all unique skills for suggestions
+const allSkills = [...new Set(projects.flatMap(p => p.skills))];
+const allTitles = projects.map(p => p.title);
+const searchOptions = [...allSkills, ...allTitles];
 
+let currentView = 'grid'; // 'grid' or 'detail'
+
+// Page fade-in animation when Projects nav is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    // Add fade-in class to trigger animation
+    document.body.classList.add('fade-in');
+    
     // Display all projects initially
     displayProjects(projects);
+    
+    // Set up search functionality
+    setupSearch();
+});
 
-    // Search input event listener
+// Enhanced search functionality
+function setupSearch() {
     searchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase();
-      
-      if (query.length > 0) {
-        // Show suggestions
-        const filteredSuggestions = searchOptions.filter(option => 
-          option.toLowerCase().includes(query)
-        );
+        const query = this.value.toLowerCase().trim();
         
-        if (filteredSuggestions.length > 0) {
-          suggestions.innerHTML = filteredSuggestions
-            .slice(0, 5)
-            .map(suggestion => `<div class="suggestion-item">${suggestion}</div>`)
-            .join('');
-          suggestions.style.display = 'block';
+        if (query.length > 0) {
+            // Show suggestions
+            const filteredSuggestions = searchOptions.filter(option => 
+                option.toLowerCase().includes(query)
+            ).slice(0, 5);
+            
+            showSuggestions(filteredSuggestions);
+            
+            // If we're in detail view, search within current project context
+            if (currentView === 'detail') {
+                searchInDetailView(query);
+            } else {
+                // Filter and display projects
+                const filteredProjects = filterProjects(query);
+                displayProjects(filteredProjects);
+            }
         } else {
-          suggestions.style.display = 'none';
+            hideSuggestions();
+            if (currentView === 'grid') {
+                displayProjects(projects);
+            } else {
+                clearDetailSearch();
+            }
         }
-        
-        // Filter projects
-        const filteredProjects = projects.filter(project => 
-          project.title.toLowerCase().includes(query) ||
-          project.description.toLowerCase().includes(query) ||
-          project.skills.some(skill => skill.toLowerCase().includes(query))
-        );
-        
-        displayProjects(filteredProjects);
-      } else {
-        suggestions.style.display = 'none';
-        displayProjects(projects);
-      }
     });
 
     // Handle suggestion clicks
     suggestions.addEventListener('click', function(e) {
-      if (e.target.classList.contains('suggestion-item')) {
-        searchInput.value = e.target.textContent;
-        suggestions.style.display = 'none';
-        
-        // Filter projects based on selected suggestion
-        const query = e.target.textContent.toLowerCase();
-        const filteredProjects = projects.filter(project => 
-          project.title.toLowerCase().includes(query) ||
-          project.skills.some(skill => skill.toLowerCase().includes(query))
-        );
-        
-        displayProjects(filteredProjects);
-      }
+        if (e.target.classList.contains('suggestion-item')) {
+            const selectedText = e.target.textContent;
+            searchInput.value = selectedText;
+            hideSuggestions();
+            
+            if (currentView === 'detail') {
+                searchInDetailView(selectedText.toLowerCase());
+            } else {
+                const filteredProjects = filterProjects(selectedText.toLowerCase());
+                displayProjects(filteredProjects);
+            }
+        }
     });
 
     // Hide suggestions when clicking outside
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('.search-container')) {
-        suggestions.style.display = 'none';
-      }
+        if (!e.target.closest('.search-container')) {
+            hideSuggestions();
+        }
     });
+}
 
-    // Display projects function
-    function displayProjects(projectList) {
-      if (projectList.length === 0) {
+// Search within detail view
+function searchInDetailView(query) {
+    const detailContent = document.getElementById('project-detail-content');
+    const allElements = detailContent.querySelectorAll('*');
+    
+    // Clear previous highlights
+    clearHighlights();
+    
+    if (query.length === 0) {
+        return;
+    }
+    
+    let matchCount = 0;
+    
+    allElements.forEach(element => {
+        if (element.children.length === 0) { // Text nodes only
+            const text = element.textContent;
+            if (text.toLowerCase().includes(query)) {
+                const highlightedText = text.replace(
+                    new RegExp(`(${query})`, 'gi'),
+                    '<mark style="background: #ffeb3b; padding: 2px 4px; border-radius: 3px;">$1</mark>'
+                );
+                element.innerHTML = highlightedText;
+                matchCount++;
+            }
+        }
+    });
+    
+    // Show match count
+    showSearchResults(matchCount, query);
+}
+
+// Clear search highlights
+function clearHighlights() {
+    const detailContent = document.getElementById('project-detail-content');
+    const highlights = detailContent.querySelectorAll('mark');
+    highlights.forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+    });
+    
+    // Remove search results indicator
+    const searchResultsDiv = document.getElementById('search-results-indicator');
+    if (searchResultsDiv) {
+        searchResultsDiv.remove();
+    }
+}
+
+// Clear detail search
+function clearDetailSearch() {
+    clearHighlights();
+}
+
+// Show search results count
+function showSearchResults(count, query) {
+    // Remove existing indicator
+    const existingIndicator = document.getElementById('search-results-indicator');
+    if (existingIndicator) {
+        existingIndicator.remove();
+    }
+    
+    if (count > 0) {
+        const indicator = document.createElement('div');
+        indicator.id = 'search-results-indicator';
+        indicator.style.cssText = `
+            background: var(--cream);
+            border: 1px solid var(--brown-light);
+            border-radius: 10px;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
+        `;
+        indicator.innerHTML = `Found ${count} match${count !== 1 ? 'es' : ''} for "${query}"`;
+        
+        const detailContent = document.getElementById('project-detail-content');
+        detailContent.insertBefore(indicator, detailContent.firstChild);
+        
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+            if (indicator.parentNode) {
+                indicator.style.transition = 'opacity 0.5s ease';
+                indicator.style.opacity = '0';
+                setTimeout(() => {
+                    if (indicator.parentNode) {
+                        indicator.remove();
+                    }
+                }, 500);
+            }
+        }, 3000);
+    }
+}
+
+// Filter projects
+function filterProjects(query) {
+    return projects.filter(project => 
+        project.title.toLowerCase().includes(query) ||
+        project.description.toLowerCase().includes(query) ||
+        project.skills.some(skill => skill.toLowerCase().includes(query))
+    );
+}
+
+// Show suggestions
+function showSuggestions(suggestionList) {
+    if (suggestionList.length === 0) {
+        hideSuggestions();
+        return;
+    }
+    
+    suggestions.innerHTML = suggestionList.map(suggestion => 
+        `<div class="suggestion-item">${suggestion}</div>`
+    ).join('');
+    
+    suggestions.style.display = 'block';
+}
+
+// Hide suggestions
+function hideSuggestions() {
+    suggestions.style.display = 'none';
+}
+
+// Display projects
+function displayProjects(projectList) {
+    if (projectList.length === 0) {
         projectsGrid.style.display = 'none';
         noResults.style.display = 'block';
         return;
-      }
-      
-      projectsGrid.style.display = 'grid';
-      noResults.style.display = 'none';
-      
-      projectsGrid.innerHTML = projectList.map(project => `
+    }
+    
+    projectsGrid.style.display = 'grid';
+    noResults.style.display = 'none';
+    
+    projectsGrid.innerHTML = projectList.map(project => `
         <div class="project-card" onclick="showProjectDetail(${project.id})">
-          <div class="project-image" style="background: ${project.gradient}">
-            <span>${project.icon}</span>
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">${project.title}</h3>
-            <p class="project-description">${project.description}</p>
-            <div class="project-skills">
-              ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            <div class="project-image" style="background: ${project.gradient}">
+                <span style="position: relative; z-index: 1;">${project.icon}</span>
             </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Show project detail
-    function showProjectDetail(projectId) {
-      const project = projects.find(p => p.id === projectId);
-      if (!project) return;
-
-      const detailContent = document.getElementById('project-detail-content');
-      detailContent.innerHTML = `
-        <div class="project-detail-header">
-          <div>
-            <h1 class="project-detail-title">${project.title}</h1>
-            <div class="project-skills">
-              ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            <div class="project-content">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-description">${project.description}</p>
+                <div class="project-skills">
+                    ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                </div>
             </div>
-          </div>
-          <div class="project-links">
-            <a href="${project.githubLink}" target="_blank" class="project-link">
-              📚 GitHub
-            </a>
-            <a href="${project.liveLink}" target="_blank" class="project-link">
-              🚀 Live App
-            </a>
-          </div>
         </div>
-        
-        <div class="project-section">
-          <h3>Problem Statement</h3>
-          <p>${project.problemStatement}</p>
-        </div>
-        
-        <div class="project-section">
-          <h3>Solution</h3>
-          <p>${project.solution}</p>
-        </div>
-        
-        <div class="project-section">
-          <h3>Project Visualizations</h3>
-          <div class="project-images">
-            ${project.images.map(image => `
-              <div class="project-image-item">
-                <img src="${image.src}" alt="${image.caption}">
-                <div class="project-image-caption">${image.caption}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-      
-      // Hide projects grid and show detail
-      projectsGrid.style.display = 'none';
-      noResults.style.display = 'none';
-      document.getElementById('project-detail').classList.add('active');
-      
-      // Scroll to top
-      window.scrollTo(0, 0);
-    }
-
-    // Show all projects
-    function showAllProjects() {
-      document.getElementById('project-detail').classList.remove('active');
-      projectsGrid.style.display = 'grid';
-      searchInput.value = '';
-      displayProjects(projects);
-    }
-    // Add this to your existing projects.html JavaScript section
-
-// Function to get URL parameters
-function getUrlParameter(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
+    `).join('');
 }
 
-// Function to update URL without page reload
-function updateUrl(projectId) {
-  const newUrl = projectId ? `${window.location.pathname}?project=${projectId}` : window.location.pathname;
-  window.history.pushState({projectId}, '', newUrl);
-}
-
-// Modified showProjectDetail function
+// Show project detail
 function showProjectDetail(projectId) {
-  const project = projects.find(p => p.id === projectId);
-  if (!project) return;
-
-  const detailContent = document.getElementById('project-detail-content');
-  detailContent.innerHTML = `
-    <div class="project-detail-header">
-      <div>
-        <h1 class="project-detail-title">${project.title}</h1>
-        <div class="project-skills">
-          ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
+    
+    currentView = 'detail';
+    
+    // Clear any existing search highlights
+    clearHighlights();
+    
+    // Hide projects grid
+    projectsGrid.style.display = 'none';
+    noResults.style.display = 'none';
+    
+    // Show project detail
+    projectDetail.style.display = 'block';
+    
+    // Populate project detail content
+    document.getElementById('project-detail-content').innerHTML = `
+        <div class="project-detail-header">
+            <div>
+                <h1 class="project-detail-title">${project.title}</h1>
+                <div class="project-skills">
+                    ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                </div>
+            </div>
+            <div class="project-links">
+                <a href="${project.githubLink}" target="_blank" class="project-link">
+                    <span>📂</span> View Code
+                </a>
+                <a href="${project.liveLink}" target="_blank" class="project-link">
+                    <span>🚀</span> Live Demo
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="project-links">
-        <a href="${project.githubLink}" target="_blank" class="project-link">
-          📚 GitHub
-        </a>
-        <a href="${project.liveLink}" target="_blank" class="project-link">
-          🚀 Live App
-        </a>
-      </div>
-    </div>
+        
+        <div class="project-section">
+            <h3>Problem Statement</h3>
+            <p>${project.problemStatement}</p>
+        </div>
+        
+        <div class="project-section">
+            <h3>Solution</h3>
+            <p>${project.solution}</p>
+        </div>
+        
+        <div class="project-section">
+            <h3>Project Gallery</h3>
+            <div class="project-images">
+                ${project.images.map(image => `
+                    <div class="project-image-item">
+                        <img src="${image.src}" alt="${image.caption}" />
+                        <div class="project-image-caption">${image.caption}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
     
-    <div class="project-section">
-      <h3>Problem Statement</h3>
-      <p>${project.problemStatement}</p>
-    </div>
-    
-    <div class="project-section">
-      <h3>Solution</h3>
-      <p>${project.solution}</p>
-    </div>
-    
-    <div class="project-section">
-      <h3>Project Visualizations</h3>
-      <div class="project-images">
-        ${project.images.map(image => `
-          <div class="project-image-item">
-            <img src="${image.src}" alt="${image.caption}">
-            <div class="project-image-caption">${image.caption}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-  
-  // Hide projects grid and show detail
-  projectsGrid.style.display = 'none';
-  noResults.style.display = 'none';
-  document.getElementById('project-detail').classList.add('active');
-  
-  // Update URL
-  updateUrl(projectId);
-  
-  // Scroll to top
-  window.scrollTo(0, 0);
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Modified showAllProjects function
+// Show all projects
 function showAllProjects() {
-  document.getElementById('project-detail').classList.remove('active');
-  projectsGrid.style.display = 'grid';
-  searchInput.value = '';
-  displayProjects(projects);
-  
-  // Update URL to remove project parameter
-  updateUrl(null);
-}
-
-// Check for project parameter on page load
-document.addEventListener('DOMContentLoaded', function() {
-  const projectId = getUrlParameter('project');
-  if (projectId) {
-    const projectIdNum = parseInt(projectId);
-    if (projects.find(p => p.id === projectIdNum)) {
-      showProjectDetail(projectIdNum);
-    }
-  }
-});
-
-// Handle browser back/forward buttons
-window.addEventListener('popstate', function(event) {
-  const projectId = getUrlParameter('project');
-  if (projectId) {
-    const projectIdNum = parseInt(projectId);
-    if (projects.find(p => p.id === projectIdNum)) {
-      showProjectDetail(projectIdNum);
-    }
-  } else {
-    showAllProjects();
-  }
-});
-  // Show resume modal
-function showResumeModal() {
-  const modal = document.getElementById('resumeModal');
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-// Close resume modal
-function closeResumeModal() {
-  const modal = document.getElementById('resumeModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-// Close modal when clicking outside
-document.getElementById('resumeModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeResumeModal();
-  }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeResumeModal();
-  }
-});
-    // Function to navigate to contact section
-function navigateToContact() {
-  // Check if we're on the homepage
-  const isHomepage = window.location.pathname.includes('index.html') || 
-                    window.location.pathname === '/' || 
-                    window.location.pathname.endsWith('/');
-  
-  if (isHomepage) {
-    // We're on homepage, just scroll to contact
-    scrollToContact();
-  } else {
-    // We're on a different page, navigate to homepage first
-    window.location.href = 'index.html#contact';
-  }
-}
-
-// Function to scroll to contact section
-function scrollToContact() {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    contactSection.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
-
-// Handle page load with hash (for homepage)
-window.addEventListener('load', function() {
-  if (window.location.hash === '#contact') {
-    setTimeout(() => {
-      scrollToContact();
-    }, 100);
-  }
-});
-    function scrollToContact() {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-    const elementPosition = contactSection.offsetTop;
-    const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
+    currentView = 'grid';
     
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-  }
+    // Clear search
+    searchInput.value = '';
+    clearHighlights();
+    hideSuggestions();
+    
+    // Hide project detail
+    projectDetail.style.display = 'none';
+    
+    // Show projects grid
+    displayProjects(projects);
 }
+
+// Modal functions
+function showResumeModal() {
+    document.getElementById('resumeModal').classList.add('active');
+}
+
+function closeResumeModal() {
+    document.getElementById('resumeModal').classList.remove('active');
+}
+
+function navigateToContact() {
+    // Add fade-out animation
+    document.body.style.opacity = '0';
+    document.body.style.transform = 'translateY(-20px)';
+    
+    setTimeout(() => {
+        window.location.href = 'contact.html';
+    }, 300);
+}
+
+// Smooth scrolling and scroll indicator
+let scrollTimeout;
+const scrollIndicator = document.createElement('div');
+scrollIndicator.className = 'scroll-indicator';
+scrollIndicator.textContent = 'Keep scrolling to see more projects';
+document.body.appendChild(scrollIndicator);
+
+window.addEventListener('scroll', () => {
+    if (currentView === 'grid') {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        
+        // Show scroll indicator
+        if (scrollPosition > windowHeight * 0.3 && scrollPosition < documentHeight - windowHeight * 1.5) {
+            scrollIndicator.classList.add('show');
+        } else {
+            scrollIndicator.classList.remove('show');
+        }
+        
+        // Hide indicator after scrolling stops
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            scrollIndicator.classList.remove('show');
+        }, 3000);
+    }
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // Escape key to go back to projects grid
+    if (e.key === 'Escape' && currentView === 'detail') {
+        showAllProjects();
+    }
+    
+    // Ctrl/Cmd + K to focus search
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+    }
+});
+
+// Enhanced card hover effects
+document.addEventListener('mouseover', function(e) {
+    if (e.target.closest('.project-card')) {
+        const card = e.target.closest('.project-card');
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        card.style.transform = `translateY(-5px) rotateX(${(y - rect.height/2) * 0.1}deg) rotateY(${(x - rect.width/2) * 0.1}deg)`;
+    }
+});
+
+document.addEventListener('mouseout', function(e) {
+    if (e.target.closest('.project-card')) {
+        const card = e.target.closest('.project-card');
+        card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+    }
+});
+
+// Preload images for better performance
+function preloadImages() {
+    projects.forEach(project => {
+        project.images.forEach(image => {
+            const img = new Image();
+            img.src = image.src;
+        });
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', preloadImages);
   </script>
 </body>
 </html>
