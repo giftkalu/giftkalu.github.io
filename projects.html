@@ -32,11 +32,13 @@
       position: relative;
       overflow-x: hidden;
       opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-      }
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
 
     body.loaded {
       opacity: 1;
+      transform: translateY(0);
     }
 
 
@@ -1121,9 +1123,6 @@ window.addEventListener('load', function() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Immediately scroll to top
-  window.scrollTo(0, 0);
-  
   // Add a small delay to ensure all content is rendered
   setTimeout(function() {
     document.body.classList.add('loaded');
@@ -1132,15 +1131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Also trigger on window load as a fallback
 window.addEventListener('load', function() {
-  // Ensure we're at the top
-  window.scrollTo(0, 0);
   document.body.classList.add('loaded');
-});
-
-// Force scroll to top on page refresh/navigation
-window.addEventListener('beforeunload', function() {
-  window.scrollTo(0, 0);
-});
   </script>
 </body>
 </html>
