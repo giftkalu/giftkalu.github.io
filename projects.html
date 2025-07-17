@@ -212,6 +212,7 @@
       font-size: 3rem;
       position: relative;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .project-image::before {
@@ -226,10 +227,11 @@
     }
 
     .project-content {
-      padding: 1.2rem;
+      padding: 1.1rem;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      min-height: 0;
     }
 
     .project-title {
