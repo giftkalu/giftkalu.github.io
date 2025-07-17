@@ -427,30 +427,30 @@
 
   <!-- Resume Modal -->
   <div class="modal-overlay" id="resumeModal">
-    <div class="modal-container">
-      <button class="close-button" onclick="closeResumeModal()">&times;</button>
-      
-      <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">📄</span>
-      
-      <h2 style="font-size: 1.8rem; color: var(--text-dark); margin-bottom: 1rem; font-weight: 600;">View Gift's Resume</h2>
-      
-      <p style="font-size: 1.1rem; color: var(--brown-dark); line-height: 1.6; margin-bottom: 2rem;">
-        You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
-      </p>
-      
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
-           target="_blank" 
-           class="cta-btn"
-           onclick="closeResumeModal()">
-          📖 View Resume
-        </a>
-        <button class="cta-btn secondary" onclick="closeResumeModal()" style="background: transparent; color: var(--accent); border: 2px solid var(--accent);">
-          ❌ Cancel
-        </button>
-      </div>
+  <div class="modal-container">
+    <button class="close-button" onclick="closeResumeModal()">&times;</button>
+    
+    <span class="modal-icon">📄</span>
+    
+    <h2 class="modal-title">View Gift's Resume</h2>
+    
+    <p class="modal-message">
+      You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
+    </p>
+    
+    <div class="modal-actions">
+      <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
+         target="_blank" 
+         class="modal-button primary"
+         onclick="closeResumeModal()">
+        📖 View Resume
+      </a>
+      <button class="modal-button secondary" onclick="closeResumeModal()">
+        ❌ Cancel
+      </button>
     </div>
   </div>
+</div>
 
   <script>
     // Article data with simplified structure
