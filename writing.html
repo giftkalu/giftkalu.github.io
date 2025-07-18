@@ -557,7 +557,7 @@
     // Article data with simplified structure
     const articles = [
       {
-        title: "The Evolution of Data Science: From Hype to Reality",
+        title: "Theq Evolution of Data Science: From Hype to Reality",
         description: "A deep dive into how the data science field has matured over the past decade, examining the shift from buzzword-driven hiring to practical, value-driven applications.",
         category: "data-career",
         date: "March 15, 2024",
@@ -733,25 +733,80 @@
       renderArticles(filteredArticles);
     }
 
-    function showResumeModal() {
-      document.getElementById('resumeModal').classList.add('active');
-    }
+   function showResumeModal() {
+  const modal = document.getElementById('resumeModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
-    function closeResumeModal() {
-      document.getElementById('resumeModal').classList.remove('active');
-    }
+// Close resume modal
+function closeResumeModal() {
+  const modal = document.getElementById('resumeModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
 
-    function navigateToContact() {
-      window.location.href = "mailto:giftkalu1@gmail.com";
-    }
+// Close modal when clicking outside
+document.getElementById('resumeModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeResumeModal();
+  }
+});
 
-    // Close modal when clicking outside
-    document.getElementById('resumeModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeResumeModal();
-      }
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeResumeModal();
+  }
+});
+
+function navigateToContact() {
+  // Check if we're on the homepage
+  const isHomepage = window.location.pathname.includes('index.html') || 
+                    window.location.pathname === '/' || 
+                    window.location.pathname.endsWith('/');
+  
+  if (isHomepage) {
+    // We're on homepage, just scroll to contact
+    scrollToContact();
+  } else {
+    // We're on a different page, navigate to homepage first
+    window.location.href = 'index.html#contact';
+  }
+}
+
+// Function to scroll to contact section
+function scrollToContact() {
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    contactSection.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
     });
+  }
+}
 
+// Handle page load with hash (for homepage)
+window.addEventListener('load', function() {
+  if (window.location.hash === '#contact') {
+    setTimeout(() => {
+      scrollToContact();
+    }, 100);
+  }
+});
+    function scrollToContact() {
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+    const elementPosition = contactSection.offsetTop;
+    const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+}
     // Initialize page
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
