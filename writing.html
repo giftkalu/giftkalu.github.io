@@ -277,7 +277,6 @@
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
     }
 
-    /* Resume Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -300,43 +299,8 @@
       visibility: visible;
     }
 
+    /* Modal Container */
     .modal-container {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 2.5rem;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(139, 69, 19, 0.3);
-      border: 2px solid var(--brown-light);
-      transform: scale(0.7) translateY(-50px);
-      transition: all 0.3s ease;
-      position: relative;
-      text-align: center;
-    }
-
-    .modal-overlay.active .modal-container {
-      transform: scale(1) translateY(0);
-    }
-
-    .close-button {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--brown-medium);
-      cursor: pointer;
-      transition: color 0.3s ease;
-      padding: 0.5rem;
-      border-radius: 50%;
-    }
-
-    .close-button:hover {
-      color: var(--accent);
-      background: var(--brown-light);
-    }
-     .modal-container {
       background: var(--white);
       border-radius: 20px;
       padding: 2.5rem;
@@ -393,7 +357,10 @@
       color: var(--brown-dark);
       line-height: 1.6;
       margin-bottom: 2rem;
-    }.modal-actions {
+    }
+
+    /* Action Buttons */
+    .modal-actions {
       display: flex;
       gap: 1rem;
       justify-content: center;
