@@ -81,6 +81,7 @@
       font-size: 0.9rem;
       padding: 0.5rem 1rem;
       white-space: nowrap;
+      cursor: pointer;
     }
 
     .navbar a:hover, .navbar a.active {
@@ -281,44 +282,47 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: var(--overlay);
       backdrop-filter: blur(5px);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10000;
+      z-index: 99999;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
+      pointer-events: none;
     }
 
     .modal-overlay.active {
       opacity: 1;
       visibility: visible;
+      pointer-events: all;
     }
 
-    /* Modal Container */
     .modal-container {
       background: var(--white);
       border-radius: 20px;
       padding: 2.5rem;
       max-width: 500px;
       width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
       box-shadow: 0 20px 60px rgba(139, 69, 19, 0.3);
       border: 2px solid var(--brown-light);
       transform: scale(0.7) translateY(-50px);
       transition: all 0.3s ease;
       text-align: center;
       position: relative;
+      z-index: 100000;
     }
 
     .modal-overlay.active .modal-container {
       transform: scale(1) translateY(0);
     }
 
-    /* Close Button */
     .close-button {
       position: absolute;
       top: 1rem;
@@ -331,6 +335,11 @@
       transition: color 0.3s ease;
       padding: 0.5rem;
       border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .close-button:hover {
@@ -338,7 +347,6 @@
       background: var(--brown-light);
     }
 
-    /* Modal Content */
     .modal-icon {
       font-size: 4rem;
       margin-bottom: 1rem;
@@ -359,7 +367,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Action Buttons */
     .modal-actions {
       display: flex;
       gap: 1rem;
@@ -405,6 +412,7 @@
       color: white;
       transform: translateY(-2px);
     }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .navbar {
@@ -436,6 +444,21 @@
         align-items: flex-start;
         gap: 0.5rem;
       }
+
+      .modal-container {
+        width: 95%;
+        padding: 2rem;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .modal-button {
+        width: 100%;
+        max-width: 250px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -457,9 +480,9 @@
   <nav class="navbar">
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
-    <a href="#" onclick="showResumeModal()">Resume</a>
+    <a href="javascript:void(0)" onclick="showResumeModal()">Resume</a>
     <a href="writing.html" class="active">Writing</a>
-    <a href="#" onclick="navigateToContact()">Contact</a>
+    <a href="javascript:void(0)" onclick="navigateToContact()">Contact</a>
   </nav>
 
   <div class="main-content">
@@ -495,36 +518,36 @@
 
   <!-- Resume Modal -->
   <div class="modal-overlay" id="resumeModal">
-  <div class="modal-container">
-    <button class="close-button" onclick="closeResumeModal()">&times;</button>
-    
-    <span class="modal-icon">📄</span>
-    
-    <h2 class="modal-title">View Gift's Resume</h2>
-    
-    <p class="modal-message">
-      You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
-    </p>
-    
-    <div class="modal-actions">
-      <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
-         target="_blank" 
-         class="modal-button primary"
-         onclick="closeResumeModal()">
-        📖 View Resume
-      </a>
-      <button class="modal-button secondary" onclick="closeResumeModal()">
-        ❌ Cancel
-      </button>
+    <div class="modal-container">
+      <button class="close-button" onclick="closeResumeModal()">&times;</button>
+      
+      <span class="modal-icon">📄</span>
+      
+      <h2 class="modal-title">View Gift's Resume</h2>
+      
+      <p class="modal-message">
+        You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
+      </p>
+      
+      <div class="modal-actions">
+        <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
+           target="_blank" 
+           class="modal-button primary"
+           onclick="closeResumeModal()">
+          📖 View Resume
+        </a>
+        <button class="modal-button secondary" onclick="closeResumeModal()">
+          ❌ Cancel
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
   <script>
     // Article data with simplified structure
     const articles = [
       {
-        title: "Theq Evolution of Data Science: From Hype to Reality",
+        title: "The Evolution of Data Science: From Hype to Reality",
         description: "A deep dive into how the data science field has matured over the past decade, examining the shift from buzzword-driven hiring to practical, value-driven applications.",
         category: "data-career",
         date: "March 15, 2024",
@@ -700,84 +723,94 @@
       renderArticles(filteredArticles);
     }
 
-   function showResumeModal() {
-  const modal = document.getElementById('resumeModal');
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
+    // Resume Modal Functions
+    function showResumeModal() {
+      console.log('Opening resume modal...'); // Debug log
+      const modal = document.getElementById('resumeModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Ensure modal is on top
+        modal.style.zIndex = '99999';
+        console.log('Modal opened successfully'); // Debug log
+      } else {
+        console.error('Resume modal not found!'); // Debug log
+      }
+    }
 
-// Close resume modal
-function closeResumeModal() {
-  const modal = document.getElementById('resumeModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
+    function closeResumeModal() {
+      console.log('Closing resume modal...'); // Debug log
+      const modal = document.getElementById('resumeModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        console.log('Modal closed successfully'); // Debug log
+      }
+    }
 
-// Close modal when clicking outside
-document.getElementById('resumeModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeResumeModal();
-  }
-});
+    // Navigation Functions
+    function navigateToContact() {
+      // Check if we're on the homepage
+      const isHomepage = window.location.pathname.includes('index.html') || 
+                        window.location.pathname === '/' || 
+                        window.location.pathname.endsWith('/');
+      
+      if (isHomepage) {
+        // We're on homepage, just scroll to contact
+        scrollToContact();
+      } else {
+        // We're on a different page, navigate to homepage first
+        window.location.href = 'index.html#contact';
+      }
+    }
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeResumeModal();
-  }
-});
-
-function navigateToContact() {
-  // Check if we're on the homepage
-  const isHomepage = window.location.pathname.includes('index.html') || 
-                    window.location.pathname === '/' || 
-                    window.location.pathname.endsWith('/');
-  
-  if (isHomepage) {
-    // We're on homepage, just scroll to contact
-    scrollToContact();
-  } else {
-    // We're on a different page, navigate to homepage first
-    window.location.href = 'index.html#contact';
-  }
-}
-
-// Function to scroll to contact section
-function scrollToContact() {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    contactSection.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
-
-// Handle page load with hash (for homepage)
-window.addEventListener('load', function() {
-  if (window.location.hash === '#contact') {
-    setTimeout(() => {
-      scrollToContact();
-    }, 100);
-  }
-});
     function scrollToContact() {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-    const elementPosition = contactSection.offsetTop;
-    const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        const elementPosition = contactSection.offsetTop;
+        const offsetPosition = elementPosition - navbarHeight - 20;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Close modal when clicking outside
+      const resumeModal = document.getElementById('resumeModal');
+      if (resumeModal) {
+        resumeModal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            closeResumeModal();
+          }
+        });
+      }
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeResumeModal();
+        }
+      });
+
+      // Handle page load with hash (for homepage navigation)
+      if (window.location.hash === '#contact') {
+        setTimeout(() => {
+          scrollToContact();
+        }, 100);
+      }
+
+      // Initialize articles
+      renderArticles(articles);
     });
-  }
-}
-    // Initialize page
+
+    // Initialize page loading animation
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
-      renderArticles(articles);
     });
   </script>
 </body>
