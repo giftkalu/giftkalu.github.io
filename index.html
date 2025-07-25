@@ -355,7 +355,7 @@
       width: fit-content;
     }
 
-    .book-card {
+   .book-card {
   flex: 0 0 auto;
   width: 220px; /* Increased from 180px to make cards wider */
   text-align: center;
@@ -373,15 +373,16 @@
 }
 
 .book-card img {
-  width: 100%; /* Changed from fixed 180px to responsive 100% */
-  max-width: 180px; /* Maintains maximum width */
-  height: auto;
+  width: 140px; /* Fixed width for consistency */
+  height: 200px; /* Fixed height to maintain book aspect ratio */
   object-fit: cover;
+  object-position: center; /* Centers the image within the frame */
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
-  margin: 0 auto 1rem auto; /* Added auto margins for centering */
+  margin: 0 auto 1rem auto; /* Centers the image horizontally */
   display: block; /* Ensures proper block-level behavior */
-  transform: rotate(0deg); /* Explicitly sets rotation to 0 to fix tilt */
+  transform: none; /* Removes any inherited transforms */
+  image-rendering: auto; /* Ensures proper image rendering */
 }
 
 .book-card p {
@@ -1142,7 +1143,7 @@
         </div>
         <div class="book-card">
           <img src="assets/zero2one.jpg" alt="Zero to One: Notes on Startups, or How to Build the Future">
-          <p>Zero to One: Notes on Startups, or How to Build the Future by Peter Thiel</p>
+          <p>Zero to One by Peter Thiel</p>
         </div>
         
         <!-- Add more books here -->
@@ -1168,11 +1169,11 @@
         </div>
          <div class="book-card">
           <img src="assets/20sdecade.jpg" alt="The Defining Decade">
-          <p>The Defining Decade: Why Your Twenties Matter--And How to Make the Most of Them Now by Meg Jay</p>
+          <p>The Defining Decade: Why Your Twenties Matter by Meg Jay</p>
         </div>
         <div class="book-card">
           <img src="assets/everybodylies.jpg" alt="Everybody Lies: Big Data, New Data">
-          <p>Everybody Lies: Big Data, New Data, and What the Internet Can Tell Us About Who We Really Are</p>
+          <p>Everybody Lies by Seth Stephens-Davidowitz</p>
         </div>
         
         <!-- Duplicate cards for infinite scroll effect -->
@@ -1210,11 +1211,11 @@
         </div>
         <div class="book-card">
           <img src="assets/20sdecade.jpg" alt="The Defining Decade">
-          <p>The Defining Decade: Why Your Twenties Matter--And How to Make the Most of Them Now by Meg Jay</p>
+          <p>The Defining Decade: Why Your Twenties Matter by Meg Jay</p>
         </div>
         <div class="book-card">
           <img src="assets/everybodylies.jpg" alt="Everybody Lies: Big Data, New Data">
-          <p>Everybody Lies: Big Data, New Data, and What the Internet Can Tell Us About Who We Really Are</p>
+          <p>Everybody Lies by Seth Stephens-Davidowitz</p>
         </div>
       </div>
     </div>
