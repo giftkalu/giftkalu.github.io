@@ -341,63 +341,172 @@
     }
 
     .books-carousel {
-      padding: 3rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-    .books-carousel h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      margin-bottom: 2rem;
-      text-align: center;
-      color: var(--text-dark);
-      line-height: 1.2;
-    }
+        .books-carousel h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
 
-    .books-carousel .carousel-track {
-      display: flex;
-      gap: 1rem;
-      animation: scroll-infinite 15s linear infinite;
-      width: fit-content;
-    }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            padding: 1rem 0;
+        }
 
-   .book-card {
-  flex: 0 0 auto;
-  width: 220px; /* Increased from 180px to make cards wider */
-  text-align: center;
-  background: var(--white);
-  padding: 1.5rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
-  border: 1px solid var(--brown-light);
-  transition: transform 0.3s ease;
-}
+        .books-carousel .carousel-track {
+            display: flex;
+            gap: 1rem;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: fit-content;
+        }
 
-.book-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
-}
+        .book-card {
+            flex: 0 0 auto;
+            width: 220px;
+            text-align: center;
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+            border: 1px solid var(--brown-light);
+            transition: transform 0.3s ease;
+        }
 
-.book-card img {
-  width: 140px; /* Fixed width for consistency */
-  height: 200px; /* Fixed height to maintain book aspect ratio */
-  object-fit: cover;
-  object-position: center; /* Centers the image within the frame */
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
-  margin: 0 auto 1rem auto; /* Centers the image horizontally */
-  display: block; /* Ensures proper block-level behavior */
-  transform: none; /* Removes any inherited transforms */
-  image-rendering: auto; /* Ensures proper image rendering */
-}
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
+        }
 
-.book-card p {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-dark);
-  line-height: 1.4;
-}
+        .book-card img {
+            width: 140px;
+            height: 200px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+            margin: 0 auto 1rem auto;
+            display: block;
+            transform: none;
+            image-rendering: auto;
+        }
 
+        .book-card p {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--white);
+            border: 2px solid var(--brown-primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+        }
+
+        .carousel-nav:hover {
+            background: var(--brown-primary);
+            color: var(--white);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav.prev {
+            left: -25px;
+        }
+
+        .carousel-nav.next {
+            right: -25px;
+        }
+
+        .carousel-nav::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .carousel-nav.prev::before {
+            border-width: 8px 12px 8px 0;
+            border-color: transparent currentColor transparent transparent;
+            margin-right: 2px;
+        }
+
+        .carousel-nav.next::before {
+            border-width: 8px 0 8px 12px;
+            border-color: transparent transparent transparent currentColor;
+            margin-left: 2px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--brown-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--brown-primary);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .books-carousel {
+                padding: 2rem 0.5rem;
+            }
+            
+            .book-card {
+                width: 180px;
+                padding: 1rem;
+            }
+            
+            .book-card img {
+                width: 120px;
+                height: 170px;
+            }
+            
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .carousel-nav.prev {
+                left: -20px;
+            }
+            
+            .carousel-nav.next {
+                right: -20px;
+            }
+        }
     .contact {
       background: var(--white);
       border-radius: 20px;
@@ -1136,95 +1245,14 @@
 </section>
   <section class="books-carousel fade-in-section">
     <h2>Books Recommendations(They're all really cool!)</h2>
-    <div class="carousel reverse" id="books-container">
-      <div class="carousel-track">
-        <!-- Original books -->
-        <div class="book-card">
-          <img src="assets/charisma.jpg" alt="The Charisma Myth">
-          <p>The Charisma Myth by Olivia Fox Cabane</p>
+    <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Book cards will be dynamically generated -->
+            </div>
+            <button class="carousel-nav prev" id="prevBtn"></button>
+            <button class="carousel-nav next" id="nextBtn"></button>
         </div>
-        <div class="book-card">
-          <img src="assets/diaryceo.jpg" alt="The Diary of a CEO by Steve Bartlett">
-          <p>The Diary of a CEO by Steve Bartlett</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/zero2one.jpg" alt="Zero to One: Notes on Startups, or How to Build the Future">
-          <p>Zero to One by Peter Thiel</p>
-        </div>
-        
-        <!-- Add more books here -->
-        <div class="book-card">
-          <img src="assets/hardthings.jpg" alt="The Hard Thing About Hard Things">
-          <p>The Hard Thing About Hard Things by Ben Horowitz</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/winfriends.jpg" alt="How to Win Friends and Influence People for Teen Girls">
-          <p>How to Win Friends and Influence People for Teen Girls by Dale Carnegie</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/alone.jpg" alt="The Art of Being Alone">
-          <p>The Art of Being Alone by Renuka Gavrani</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/uact.jpg" alt="Why You Act the Way You Do">
-          <p>Why You Act the Way You Do by Tim LaHaye </p>
-        </div>
-        <div class="book-card">
-          <img src="assets/7habits.avif" alt="The 7 Habits">
-          <p>The 7 Habits of Highly Effective People by Stephen Covey</p>
-        </div>
-         <div class="book-card">
-          <img src="assets/20sdecade.jpg" alt="The Defining Decade">
-          <p>The Defining Decade: Why Your Twenties Matter by Meg Jay</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/everybodylies.jpg" alt="Everybody Lies: Big Data, New Data">
-          <p>Everybody Lies by Seth Stephens-Davidowitz</p>
-        </div>
-        
-        <!-- Duplicate cards for infinite scroll effect -->
-         <div class="book-card">
-          <img src="assets/charisma.jpg" alt="The Charisma Myth">
-          <p>The Charisma Myth by Olivia Fox Cabane</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/diaryceo.jpg" alt="The Diary of a CEO by Steve Bartlett">
-          <p>The Diary of a CEO by Steve Bartlett</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/zero2one.jpg" alt="Show Your Work">
-          <p>Zero to One: Notes on Startups, or How to Build the Future by Peter Thiel</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/hardthings.jpg" alt="The Hard Thing About Hard Things">
-          <p>The Hard Thing About Hard Things by Ben Horowitz</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/winfriends.jpg" alt="How to Win Friends and Influence People for Teen Girls">
-          <p>How to Win Friends and Influence People for Teen Girls by Dale Carnegie</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/alone.jpg" alt="The Art of Being Alone">
-          <p>The Art of Being Alone by Renuka Gavrani</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/uact.jpg" alt="Why You Act the Way You Do">
-          <p>Why You Act the Way You Do by Tim LaHaye </p>
-        </div>
-         <div class="book-card">
-          <img src="assets/7habits.avif" alt="The 7 Habits">
-          <p>The 7 Habits of Highly Effective People by Stephen Covey</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/20sdecade.jpg" alt="The Defining Decade">
-          <p>The Defining Decade: Why Your Twenties Matter by Meg Jay</p>
-        </div>
-        <div class="book-card">
-          <img src="assets/everybodylies.jpg" alt="Everybody Lies: Big Data, New Data">
-          <p>Everybody Lies by Seth Stephens-Davidowitz</p>
-        </div>
-      </div>
-    </div>
+        <div class="carousel-indicators" id="indicators"></div>
   </section>
 
   <section class="contact fade-in-section" id="contact">
@@ -1393,6 +1421,154 @@ document.addEventListener('keydown', function(e) {
     closeResumeModal();
   }
 });
+    const books = [
+            {
+                title: "The Charisma Myth by Olivia Fox Cabane",
+                image: "assets/charisma.jpg"
+            },
+            {
+                title: "The Diary of a CEO by Steve Bartlett", 
+                image: "assets/diaryceo.jpg"
+            },
+            {
+                title: "Zero to One: Notes on Startups, or How to Build the Future by Peter Thiel",
+                image: "assets/zero2one.jpg"
+            },
+            {
+                title: "Why You Act the Way You Do by Tim LaHaye",
+                image: "assets/uact.jpg"
+            },
+            {
+                title: "How to Win Friends and Influence People for Teen Girls by Dale Carnegie",
+                image: "assets/winfriends.jpg"
+            },
+            {
+                title: "The Hard Thing About Hard Things by Ben Horowitz",
+                image: "assets/hardthings.jpg"
+            },
+            {
+                title: "The Art of Being Alone by Renuka Gavrani",
+                image: "assets/alone.jpg"
+            },
+            {
+                title: "Everybody Lies by Seth Stephens-Davidowitz",
+                image: "assets/everybodylies.jpg"
+            },
+            {
+                title: "The 7 Habits of Highly Effective People by Stephen Covey",
+                image: "assets/7habits.avif"
+            },
+            {
+                title: "The Defining Decade: Why Your Twenties Matter by Meg Jay",
+                image: "assets/20sdecade.jpg"
+            }
+        ];
+
+        class BooksCarousel {
+            constructor() {
+                this.currentIndex = 0;
+                this.booksPerPage = this.calculateBooksPerPage();
+                this.totalPages = Math.ceil(books.length / this.booksPerPage);
+                
+                this.track = document.getElementById('carouselTrack');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.indicators = document.getElementById('indicators');
+                
+                this.init();
+            }
+
+            calculateBooksPerPage() {
+                const screenWidth = window.innerWidth;
+                if (screenWidth < 768) return 1;
+                if (screenWidth < 1024) return 2;
+                if (screenWidth < 1200) return 3;
+                return 4;
+            }
+
+            init() {
+                this.renderBooks();
+                this.createIndicators();
+                this.updateCarousel();
+                this.bindEvents();
+            }
+
+            renderBooks() {
+                this.track.innerHTML = books.map(book => `
+                    <div class="book-card">
+                        <img src="${book.image}" alt="${book.title}" loading="lazy">
+                        <p>${book.title}</p>
+                    </div>
+                `).join('');
+            }
+
+            createIndicators() {
+                this.indicators.innerHTML = '';
+                for (let i = 0; i < this.totalPages; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'indicator';
+                    indicator.addEventListener('click', () => this.goToPage(i));
+                    this.indicators.appendChild(indicator);
+                }
+            }
+
+            updateCarousel() {
+                const cardWidth = 220; // book card width
+                const gap = 16; // gap between cards
+                const offset = this.currentIndex * this.booksPerPage * (cardWidth + gap);
+                
+                this.track.style.transform = `translateX(-${offset}px)`;
+                
+                // Update indicators
+                document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentIndex);
+                });
+            }
+
+            nextPage() {
+                this.currentIndex = (this.currentIndex + 1) % this.totalPages;
+                this.updateCarousel();
+            }
+
+            prevPage() {
+                this.currentIndex = this.currentIndex === 0 ? this.totalPages - 1 : this.currentIndex - 1;
+                this.updateCarousel();
+            }
+
+            goToPage(pageIndex) {
+                this.currentIndex = pageIndex;
+                this.updateCarousel();
+            }
+
+            bindEvents() {
+                this.nextBtn.addEventListener('click', () => this.nextPage());
+                this.prevBtn.addEventListener('click', () => this.prevPage());
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const newBooksPerPage = this.calculateBooksPerPage();
+                    if (newBooksPerPage !== this.booksPerPage) {
+                        this.booksPerPage = newBooksPerPage;
+                        this.totalPages = Math.ceil(books.length / this.booksPerPage);
+                        this.currentIndex = Math.min(this.currentIndex, this.totalPages - 1);
+                        this.createIndicators();
+                        this.updateCarousel();
+                    }
+                });
+
+                // Optional: Auto-advance every 5 seconds (uncomment if desired)
+                /*
+                setInterval(() => {
+                    this.nextPage();
+                }, 5000);
+                */
+            }
+        }
+
+        // Initialize carousel when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new BooksCarousel();
+        });
   </script>
 </body>
 </html>
