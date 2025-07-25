@@ -356,37 +356,40 @@
     }
 
     .book-card {
-      flex: 0 0 auto;
-      width: 180px;
-      text-align: center;
-      background: var(--white);
-      padding: 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
-      border: 1px solid var(--brown-light);
-      transition: transform 0.3s ease;
-    }
+  flex: 0 0 auto;
+  width: 220px; /* Increased from 180px to make cards wider */
+  text-align: center;
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
+  border: 1px solid var(--brown-light);
+  transition: transform 0.3s ease;
+}
 
-    .book-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
-    }
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
+}
 
-    .book-card img {
-      width: 180px;
-      height: auto;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
-      margin-bottom: 1rem;
-    }
+.book-card img {
+  width: 100%; /* Changed from fixed 180px to responsive 100% */
+  max-width: 180px; /* Maintains maximum width */
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+  margin: 0 auto 1rem auto; /* Added auto margins for centering */
+  display: block; /* Ensures proper block-level behavior */
+  transform: rotate(0deg); /* Explicitly sets rotation to 0 to fix tilt */
+}
 
-    .book-card p {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-dark);
-      line-height: 1.4;
-    }
+.book-card p {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
 
     .contact {
       background: var(--white);
