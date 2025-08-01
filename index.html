@@ -208,7 +208,15 @@
       0% { transform: translateX(-50%); }
       100% { transform: translateX(0); }
     }
+	a.project-card {
+  text-decoration: none;
+  color: inherit;
+}
 
+a.project-card:hover {
+  text-decoration: none;
+  color: inherit;
+}
     .project-card, .certificate-card, .testimonial-card {
       flex: 0 0 auto;
       width: 280px;
@@ -221,44 +229,42 @@
       transition: transform 0.3s ease;
       border: 1px solid var(--brown-light);
     }
-
+	  
     .project-card:hover, .certificate-card:hover, .testimonial-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 12px 30px rgba(139, 69, 19, 0.15);
     }
     .project-img {
-  width: 100%;
-  height: 200px;
-  border: 1px solid var(--brown-light);
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-  object-fit: cover;
-  object-position: center; /* Centers the image within the frame */
-  margin: 0 auto 1rem auto; /* Centers the image horizontally */
-  display: block; /* Ensures proper block-level behavior */
-  transform: none; /* Removes any inherited transforms */
-  image-rendering: auto;
+    width: 100%;
+    height: 200px;
+    border: 1px solid var(--brown-light);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    object-position: center; /* Centers the image within the frame */
+    margin: 0 auto 1rem auto; /* Centers the image horizontally */
+    display: block; /* Ensures proper block-level behavior */
+    transform: none; /* Removes any inherited transforms */
+    image-rendering: auto;
 }
-
-  .project-card p {
-      font-style: italic;
-      margin-bottom: 1rem;
-      flex-grow: 1;
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-    .certificate-img {
-  width: 100%;
-  height: 200px;
-  border: 1px solid var(--brown-light);
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-  object-fit: cover;
-  object-position: center; /* Centers the image within the frame */
-  margin: 0 auto 1rem auto; /* Centers the image horizontally */
-  display: block; /* Ensures proper block-level behavior */
-  transform: none; /* Removes any inherited transforms */
-  image-rendering: auto;
+	.project-title {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+  .certificate-img {
+    width: 100%;
+    height: 200px;
+    border: 1px solid var(--brown-light);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    object-position: center; /* Centers the image within the frame */
+    margin: 0 auto 1rem auto; /* Centers the image horizontally */
+    display: block; /* Ensures proper block-level behavior */
+    transform: none; /* Removes any inherited transforms */
+    image-rendering: auto;
 }
 
 .certificate-title {
@@ -792,195 +798,6 @@
       }
     }
 
-    /* Demo Styles (remove these in your actual implementation) */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--main-bg);
-      padding: 2rem;
-      margin: 0;
-    }
-
-    .demo-navbar {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 1rem 2rem;
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .demo-navbar a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .demo-navbar a:hover {
-      background: var(--brown-light);
-      color: white;
-    }
-
-    .demo-content {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    /* Mobile-first responsive design */
-    @media (max-width: 768px) {
-      .navbar {
-        padding: 0.8rem 1rem;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .navbar a {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-      }
-
-      .hero {
-        padding: 5rem 1rem 2rem;
-        min-height: 90vh;
-      }
-
-      .profile-pic {
-        width: 400px;
-        height: 400px;
-      }
-
-      section {
-        padding: 2rem 1rem;
-      }
-
-      .about, .blogs, .contact {
-        padding: 1.5rem;
-      }
-
-      .project-card, .certificate-card, .testimonial-card {
-        width: 250px;
-        min-height: 200px;
-      }
-
-      .testimonial-card {
-        padding: 1.2rem;
-      }
-
-      .book-card {
-        width: 160px;
-        padding: 1.2rem;
-      }
-
-      .book-card img {
-        width: 90px;
-        height: 120px;
-      }
-
-      .carousel-track {
-        animation-duration: 6s;
-      }
-
-      .books-carousel .carousel-track {
-        animation-duration: 6s;
-      }
-
-      .socials {
-        gap: 1rem;
-      }
-
-      .socials a {
-        flex-direction: column;
-        text-align: center;
-        min-width: 80px;
-      }
-
-      .socials a span {
-        font-size: 0.8rem;
-      }
-    }
-
-    /* Extra small devices */
-    @media (max-width: 480px) {
-      .navbar {
-        padding: 0.6rem 0.5rem;
-        gap: 0.5rem;
-      }
-
-      .navbar a {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.6rem;
-      }
-
-      .hero {
-        padding: 4.5rem 0.5rem 1.5rem;
-      }
-
-      .profile-pic {
-        width: 250px;
-        height: 250px;
-      }
-
-      section {
-        padding: 1.5rem 0.5rem;
-      }
-
-      .about, .blogs, .contact {
-        padding: 1rem;
-      }
-
-      .project-card, .certificate-card, .testimonial-card {
-        width: 220px;
-        min-height: 180px;
-      }
-
-      .book-card {
-        width: 140px;
-        padding: 1rem;
-      }
-
-      .book-card img {
-        width: 80px;
-        height: 110px;
-      }
-
-      .skills-list {
-        gap: 0.5rem;
-      }
-
-      .skills-list span {
-        padding: 0.4rem 0.8rem;
-      }
-
-      .carousel {
-        gap: 0.8rem;
-      }
-
-      .carousel-track {
-        gap: 0.8rem;
-      }
-
-      #abcd-expanded {
-        font-size: 0.9rem;
-        padding: 0 0.5rem;
-      }
-    }
-
-    /* Landscape orientation on mobile */
-    @media (max-height: 500px) and (orientation: landscape) {
-      .hero {
-        min-height: 80vh;
-        padding: 4rem 1rem 1rem;
-      }
-
-      .navbar {
-        padding: 0.5rem 1rem;
-      }
-    }
-
     /* Touch-friendly interactive elements */
     @media (hover: none) and (pointer: coarse) {
       .project-card:hover, 
@@ -1062,7 +879,6 @@
           <div class="project-content">
             <img src="assets/carprice.png" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Data Visualization Dashboard</div>
-            <div class="project-description">Interactive dashboards with real-time analytics</div>
           </div>
         </a>
 
@@ -1071,8 +887,7 @@
           <div class="project-content">
             <img src="assets/churn.webp" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Customer Churn Prediction</div>
-            <div class="project-description">ML model to predict customer retention</div>
-          </div>
+            </div>
         </a>
 
         <!-- Project 3: Content Strategy Calendar -->
@@ -1080,7 +895,7 @@
           <div class="project-content">
             <img src="assets/abtest.png" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Content Strategy Calendar</div>
-            <div class="project-description">A/B Testing & ML model to predict conversion on Ads</div>
+            
           </div>
         </a>
 
@@ -1089,8 +904,7 @@
           <div class="project-content">
             <img src="assets/sentiment.jpg" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">NLP Sentiment Analysis</div>
-            <div class="project-description">Social media sentiment tracking tool</div>
-          </div>
+            </div>
         </a>
 
         <!-- Project 5: Sales Forecasting Model -->
@@ -1098,7 +912,7 @@
           <div class="project-content">
             <img src="assets/sales1.jpeg" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Sales Forecasting Model</div>
-            <div class="project-description">Time series analysis for sales prediction</div>
+          
           </div>
         </a>
 
@@ -1107,8 +921,7 @@
           <div class="project-content">
             <img src="assets/carprice.png" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Data Visualization Dashboard</div>
-            <div class="project-description">Interactive dashboards with real-time analytics</div>
-          </div>
+            </div>
         </a>
 
         <!-- Project 2: Customer Churn Prediction -->
@@ -1116,8 +929,7 @@
           <div class="project-content">
             <img src="assets/churn.webp" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Customer Churn Prediction</div>
-            <p>ML model to predict customer retention</p>
-          </div>
+           </div>
         </a>
 
         <!-- Project 3: Content Strategy Calendar -->
@@ -1125,8 +937,7 @@
           <div class="project-content">
             <img src="assets/abtest.png" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Content Strategy Calendar</div>
-            <p>Automated content planning and scheduling</p>
-          </div>
+           </div>
         </a>
 
         <!-- Project 4: NLP Sentiment Analysis -->
@@ -1134,8 +945,7 @@
           <div class="project-content">
             <img src="assets/sentiment.jpg" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">NLP Sentiment Analysis</div>
-            <div class="project-description">Social media sentiment tracking tool</div>
-          </div>
+            </div>
         </a>
 
         <!-- Project 5: Sales Forecasting Model -->
@@ -1143,8 +953,7 @@
           <div class="project-content">
             <img src="assets/sales1.jpeg" alt="Data Science With Machine Learning and Python" class="project-img">
             <div class="project-title">Sales Forecasting Model</div>
-            <div class="project-description">Time series analysis for sales prediction</div>
-          </div>
+           </div>
         </a>
       </div>
     </div>
@@ -1594,3 +1403,5 @@ document.addEventListener('keydown', function(e) {
   </script>
 </body>
 </html>
+
+
