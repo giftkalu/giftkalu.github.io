@@ -76,7 +76,110 @@
     .navbar a:hover {
       color: var(--accent);
     }
+	.carousel-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
 
+  .carousel-wrapper {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .view-all-projects {
+    flex: 0 0 auto;
+    background: linear-gradient(135deg, var(--brown-medium) 0%, var(--brown-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+    position: relative;
+  }
+
+  .view-all-projects:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+    color: white;
+    text-decoration: none;
+  }
+
+  .view-all-projects::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 12px;
+    border-color: transparent transparent transparent currentColor;
+    margin-left: 2px;
+  }
+
+  /* Tooltip styles */
+  .view-all-projects .tooltip {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-dark);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .view-all-projects .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: var(--text-dark) transparent transparent transparent;
+  }
+
+  .view-all-projects:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-5px);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .carousel-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .view-all-projects {
+      width: 50px;
+      height: 50px;
+      align-self: center;
+    }
+
+    .view-all-projects .tooltip {
+      top: -40px;
+      font-size: 0.75rem;
+    }
+  }
     .hero {
       display: flex;
       flex-direction: column;
@@ -872,16 +975,17 @@ a.project-card:hover {
       <span>Google Cloud Platform</span>
     </div>
   </section>
-
   <section class="projects-carousel">
     <h2>Projects</h2>
+    <div class="carousel-container">
+    <div class="carousel-wrapper">
     <div class="carousel reverse" id="projects-container">
       <div class="carousel-track">
         <!-- Project 1: Data Visualization Dashboard -->
         <a href="projects.html?project=4" class="project-card">
           <div class="project-content">
-            <img src="assets/carprice.png" alt="Data Science With Machine Learning and Python" class="project-img">
-            <div class="project-title">Data Visualization Dashboard</div>
+            <img src="assets/carprice.png" alt="Car Price Prediction" class="project-img">
+            <div class="project-title">Car Price Prediction</div>
           </div>
         </a>
 
@@ -892,12 +996,12 @@ a.project-card:hover {
             <div class="project-title">Customer Churn Prediction</div>
             </div>
         </a>
-
+		
         <!-- Project 3: Content Strategy Calendar -->
         <a href="projects.html?project=5" class="project-card">
           <div class="project-content">
-            <img src="assets/abtest.png" alt="Data Science With Machine Learning and Python" class="project-img">
-            <div class="project-title">Content Strategy Calendar</div>
+            <img src="assets/abtest.png" alt="Conversion Rate Analysis" class="project-img">
+            <div class="project-title">Conversion Rate Analysis</div>
             
           </div>
         </a>
@@ -922,8 +1026,8 @@ a.project-card:hover {
         <!-- Duplicate cards for infinite scroll -->
         <a href="projects.html?project=4" class="project-card">
           <div class="project-content">
-            <img src="assets/carprice.png" alt="Data Science With Machine Learning and Python" class="project-img">
-            <div class="project-title">Data Visualization Dashboard</div>
+            <img src="assets/carprice.png" alt="Car Price Prediction" class="project-img">
+            <div class="project-title">Car Price Prediction</div>
             </div>
         </a>
 
@@ -938,8 +1042,8 @@ a.project-card:hover {
         <!-- Project 3: Content Strategy Calendar -->
         <a href="projects.html?project=5" class="project-card">
           <div class="project-content">
-            <img src="assets/abtest.png" alt="Data Science With Machine Learning and Python" class="project-img">
-            <div class="project-title">Content Strategy Calendar</div>
+            <img src="assets/abtest.png" alt="Conversion Rate Analysis" class="project-img">
+            <div class="project-title">Conversion Rate Analysis</div>
            </div>
         </a>
 
@@ -959,6 +1063,11 @@ a.project-card:hover {
            </div>
         </a>
       </div>
+      </div>
+      </div>
+      <a href="projects.html" class="view-all-projects">
+      <span class="tooltip">View all projects</span>
+    </a>
     </div>
   </section>
 
@@ -967,7 +1076,7 @@ a.project-card:hover {
     <div class="carousel reverse" id="testimonials-container">
       <div class="carousel-track">
         <div class="testimonial-card">
-          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=JD" alt="Jane Doe">
+          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=JD" alt="Ahmed Adegunle">
           <p>"Gift is incredibly insightful and creative! She brings data and storytelling together beautifully."</p>
           <span>- Jane Doe</span>
         </div>
@@ -1401,5 +1510,4 @@ document.addEventListener('keydown', function(e) {
   </script>
 </body>
 </html>
-
 
