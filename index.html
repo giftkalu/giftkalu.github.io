@@ -80,7 +80,8 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
+    overflow: visible;
   }
 
   .carousel-wrapper {
@@ -98,6 +99,8 @@
     width: 60px;
     height: 60px;
     display: flex;
+    margin-right: 40px;
+    margin-left: -0.25rem;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -128,8 +131,8 @@
   .view-all-projects .tooltip {
     position: absolute;
     top: -45px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: auto;
+    transform: translateX(0);
     background: var(--text-dark);
     color: white;
     padding: 0.5rem 0.75rem;
@@ -1076,7 +1079,7 @@ a.project-card:hover {
     <div class="carousel reverse" id="testimonials-container">
       <div class="carousel-track">
         <div class="testimonial-card">
-          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=JD" alt="Ahmed Adegunle">
+          <img src="https://via.placeholder.com/60x60/8b4513/ffffff?text=JD" alt="Ahmed Adegun">
           <p>"Gift is incredibly insightful and creative! She brings data and storytelling together beautifully."</p>
           <span>- Jane Doe</span>
         </div>
@@ -1510,3 +1513,4 @@ document.addEventListener('keydown', function(e) {
   </script>
 </body>
 </html>
+
