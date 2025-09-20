@@ -386,13 +386,14 @@
       background: var(--brown-light);
       color: white;
     }
+
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--overlay);
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(5px);
       display: flex;
       justify-content: center;
@@ -408,7 +409,6 @@
       visibility: visible;
     }
 
-    /* Modal Container */
     .modal-container {
       background: var(--white);
       border-radius: 20px;
@@ -427,7 +427,6 @@
       transform: scale(1) translateY(0);
     }
 
-    /* Close Button */
     .close-button {
       position: absolute;
       top: 1rem;
@@ -452,7 +451,6 @@
       background: var(--brown-light);
     }
 
-    /* Modal Content */
     .modal-icon {
       font-size: 4rem;
       margin-bottom: 1rem;
@@ -473,7 +471,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Action Buttons */
     .modal-actions {
       display: flex;
       gap: 1rem;
@@ -520,24 +517,25 @@
       transform: translateY(-2px);
     }
 
-    /* Responsive Design */
-    @media (max-width: 480px) {
-      .modal-container {
-        padding: 2rem;
-        margin: 1rem;
-      }
-
-      .modal-actions {
-        flex-direction: column;
-      }
-
-      .modal-button {
-        width: 100%;
-      }
+    .scroll-indicator {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
     }
 
-    /* Demo Styles (remove these in your actual implementation) */
-   
+    .scroll-indicator.show {
+      opacity: 1;
+      visibility: visible;
+    }
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
@@ -575,25 +573,6 @@
         grid-template-columns: 1fr;
       }
     }
-    .scroll-indicator {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.scroll-indicator.show {
-  opacity: 1;
-  visibility: visible;
-}
 
     @media (max-width: 480px) {
       .search-bar {
@@ -608,10 +587,24 @@
       .project-detail {
         padding: 1.5rem;
       }
+
+      .modal-container {
+        padding: 2rem;
+        margin: 1rem;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-button {
+        width: 100%;
+      }
     }
+
     html {
-  scroll-behavior: smooth;
-}
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
 <body>
@@ -626,7 +619,7 @@
   <div class="main-content">
     <div class="page-header">
       <h1>My Projects</h1>
-      <p>A1 collection of data science projects showcasing my skills in analytics, machine learning, and creative problem-solving.</p>
+      <p>A collection of data science projects showcasing my skills in analytics, machine learning, and creative problem-solving.</p>
     </div>
 
     <div class="search-container">
@@ -651,34 +644,36 @@
       </div>
     </div>
   </div>
+
   <!-- Resume Confirmation Modal -->
-<div class="modal-overlay" id="resumeModal">
-  <div class="modal-container">
-    <button class="close-button" onclick="closeResumeModal()">&times;</button>
-    
-    <span class="modal-icon">📄</span>
-    
-    <h2 class="modal-title">View Gift's Resume</h2>
-    
-    <p class="modal-message">
-      You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
-    </p>
-    
-    <div class="modal-actions">
-      <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
-         target="_blank" 
-         class="modal-button primary"
-         onclick="closeResumeModal()">
-        📖 View Resume
-      </a>
-      <button class="modal-button secondary" onclick="closeResumeModal()">
-        ❌ Cancel
-      </button>
+  <div class="modal-overlay" id="resumeModal">
+    <div class="modal-container">
+      <button class="close-button" onclick="closeResumeModal()">&times;</button>
+      
+      <span class="modal-icon">📄</span>
+      
+      <h2 class="modal-title">View Gift's Resume</h2>
+      
+      <p class="modal-message">
+        You're about to view Gift Kalu's professional resume. This will open in a new tab as a view-only PDF document.
+      </p>
+      
+      <div class="modal-actions">
+        <a href="https://docs.google.com/document/d/1Rie2dz1gwFykhuZDVj3auajF3flLCbH8Y6lO4ifwWsY/edit?usp=sharing" 
+           target="_blank" 
+           class="modal-button primary"
+           onclick="closeResumeModal()">
+          📖 View Resume
+        </a>
+        <button class="modal-button secondary" onclick="closeResumeModal()">
+          ❌ Cancel
+        </button>
+      </div>
     </div>
   </div>
-</div>
+
   <script>
-    // Project data
+    // Project data with enhanced structure
     const projects = [
       {
         id: 1,
@@ -688,7 +683,9 @@
         icon: "📊",
         gradient: "linear-gradient(135deg, #a0845c 0%, #8b4513 100%)",
         problemStatement: "A telecommunications company was experiencing high customer churn rates (25% annually), leading to significant revenue loss and increased customer acquisition costs. The company needed a predictive model to identify at-risk customers before they churned.",
-        solution: "Developed a comprehensive machine learning pipeline that analyzes customer behavior patterns, usage statistics, and demographic data. The solution includes data preprocessing, feature engineering, model training with multiple algorithms, and a real-time prediction system.",
+        solution: "Developed a comprehensive machine learning pipeline that analyzes customer behavior patterns, usage statistics, and demographic data to predict churn probability with high accuracy.",
+        approach: "Applied a systematic data science methodology including: data cleaning and preprocessing, exploratory data analysis with statistical testing, feature engineering using domain knowledge, model selection comparing Random Forest, XGBoost, and ensemble methods, hyperparameter tuning with cross-validation, and model interpretation using SHAP values for business insights.",
+        results: "Achieved 89% accuracy and 0.85 F1-score on test data. Identified top 3 churn indicators: contract type, monthly charges, and tenure. Enabled the company to reduce churn by 15% through targeted retention campaigns, resulting in $2.3M annual revenue retention.",
         githubLink: "https://github.com/gee-kay06/customer-churn-prediction",
         liveLink: "https://customer-churn-predictor.streamlit.app",
         images: [
@@ -705,7 +702,9 @@
         icon: "📈",
         gradient: "linear-gradient(135deg, #d2b48c 0%, #a0845c 100%)",
         problemStatement: "A retail company struggled with inventory management and sales planning due to lack of accurate sales forecasting. Manual forecasting methods were time-consuming and often inaccurate, leading to stockouts and overstock situations.",
-        solution: "Built an automated sales forecasting system using ARIMA and Prophet models. The dashboard provides interactive visualizations, seasonal trend analysis, and automated alerts for significant forecast deviations. Integrated with the company's existing CRM system for real-time data updates.",
+        solution: "Built an automated sales forecasting system using advanced time series models with interactive visualizations and real-time data integration for accurate demand planning.",
+        approach: "Implemented multiple forecasting techniques including: ARIMA modeling for trend analysis, Prophet for handling seasonality and holidays, ensemble methods combining multiple models, automated feature engineering for external factors, and real-time dashboard development with Streamlit and Plotly for interactive visualization.",
+        results: "Improved forecast accuracy by 35% compared to manual methods (MAPE reduced from 18% to 12%). Reduced inventory costs by 22% while maintaining 98% stock availability. Automated reporting saved 15 hours per week of manual analysis work.",
         githubLink: "https://github.com/gee-kay06/sales-forecasting",
         liveLink: "https://sales-forecast-dashboard.herokuapp.com",
         images: [
@@ -722,9 +721,11 @@
         icon: "🔍",
         gradient: "linear-gradient(135deg, #8b4513 0%, #654321 100%)",
         problemStatement: "A social media marketing agency needed to monitor brand sentiment across multiple platforms in real-time. Manual monitoring was inefficient and couldn't scale with the volume of social media mentions.",
-        solution: "Developed a comprehensive sentiment analysis system using pre-trained BERT models and custom fine-tuning. The system processes social media posts, reviews, and comments to provide real-time sentiment scores, trend analysis, and automated alerts for negative sentiment spikes.",
+        solution: "Developed a comprehensive sentiment analysis system using state-of-the-art NLP models to automatically classify and analyze sentiment from social media content.",
+        approach: "Utilized advanced NLP techniques including: pre-trained BERT models for high-accuracy sentiment classification, custom fine-tuning on domain-specific social media data, real-time data streaming from social media APIs, MongoDB for scalable data storage, and Flask-based REST API for easy integration with existing systems.",
+        results: "Achieved 92% accuracy on sentiment classification (compared to 78% with traditional methods). Processed 50K+ social media posts daily with average response time of 0.3 seconds. Identified sentiment trends 2-3 days earlier than manual monitoring, enabling proactive crisis management.",
         githubLink: "https://github.com/gee-kay06/nlp-sentiment-analysis",
-        liveLink: "https://sentiment-analyzer-app.vercel.app",
+        liveLink: null, // No live link for this project
         images: [
           { src: "https://via.placeholder.com/400x200/8b4513/ffffff?text=Sentiment+Distribution", caption: "Sentiment Score Distribution" },
           { src: "https://via.placeholder.com/400x200/a0845c/ffffff?text=Word+Cloud+Analysis", caption: "Most Frequent Words by Sentiment" },
@@ -739,7 +740,9 @@
         icon: "📊",
         gradient: "linear-gradient(135deg, #a0845c 0%, #8b4513 100%)",
         problemStatement: "A growing startup needed a centralized dashboard to track business metrics across different departments. Executives were spending too much time collecting data from various sources instead of making strategic decisions.",
-        solution: "Created a comprehensive BI dashboard that aggregates data from multiple sources (CRM, marketing platforms, financial systems) into a single, real-time view. Features include customizable KPI widgets, automated report generation, and drill-down capabilities for detailed analysis.",
+        solution: "Created a comprehensive business intelligence dashboard that consolidates data from multiple sources into a unified, real-time analytical platform.",
+        approach: "Developed a full-stack BI solution including: ETL pipelines to extract data from CRM, marketing, and financial systems, PostgreSQL database design for optimized query performance, interactive dashboard development using Plotly Dash, automated report generation with scheduled exports, and role-based access control for different user types.",
+        results: "Reduced executive decision-making time by 60% through real-time insights. Automated 25+ manual reports, saving 40 hours per week across departments. Improved data accuracy from 85% to 99% by eliminating manual data entry errors. Dashboard adoption rate of 95% across all departments.",
         githubLink: "https://github.com/gee-kay06/business-dashboard",
         liveLink: "https://business-metrics-dashboard.onrender.com",
         images: [
@@ -756,9 +759,11 @@
         icon: "📝",
         gradient: "linear-gradient(135deg, #d2b48c 0%, #a0845c 100%)",
         problemStatement: "A content marketing team struggled with consistent content creation and optimal posting times. They needed data-driven insights to improve engagement rates and streamline their content planning process.",
-        solution: "Built an intelligent content calendar system that analyzes historical performance data, trending topics, and audience behavior patterns. The tool provides content suggestions, optimal posting times, and performance predictions to maximize engagement.",
+        solution: "Built an intelligent content calendar system that leverages data analytics and trend analysis to optimize content strategy and posting schedules.",
+        approach: "Implemented a data-driven content optimization system including: social media API integration for trend analysis, historical performance analysis using statistical methods, content topic suggestion using NLP and keyword analysis, optimal timing prediction using machine learning, and automated calendar generation with content templates.",
+        results: "Increased average engagement rates by 45% through optimized posting times. Reduced content planning time by 70% with automated suggestions. Improved content consistency with 95% adherence to posting schedule. Generated 3x more content ideas per month through trend analysis.",
         githubLink: "https://github.com/gee-kay06/content-strategy-calendar",
-        liveLink: "https://content-calendar-optimizer.netlify.app",
+        liveLink: null,
         images: [
           { src: "https://via.placeholder.com/400x200/8b4513/ffffff?text=Content+Calendar+View", caption: "Monthly Content Calendar" },
           { src: "https://via.placeholder.com/400x200/a0845c/ffffff?text=Engagement+Analytics", caption: "Content Performance Analytics" },
@@ -773,7 +778,9 @@
         icon: "📦",
         gradient: "linear-gradient(135deg, #8b4513 0%, #654321 100%)",
         problemStatement: "A manufacturing company faced frequent stockouts and excess inventory, leading to production delays and increased carrying costs. They needed an intelligent system to optimize inventory levels and predict demand patterns.",
-        solution: "Developed a comprehensive inventory management system with machine learning-based demand forecasting, automated reorder point calculations, and real-time stock tracking. The system reduces carrying costs by 30% while maintaining 99% stock availability.",
+        solution: "Developed a comprehensive inventory management system with machine learning-based demand forecasting and automated optimization algorithms.",
+        approach: "Built an end-to-end inventory optimization platform including: demand forecasting using machine learning models (Random Forest, LSTM), inventory optimization algorithms for reorder point calculation, automated alert system for low stock and overstock situations, REST API development for system integration, and real-time dashboard for inventory monitoring.",
+        results: "Reduced inventory carrying costs by 30% while maintaining 99% stock availability. Decreased stockout incidents by 85% through accurate demand prediction. Automated 90% of reorder decisions, saving 25 hours per week of manual work. Improved inventory turnover ratio from 4.2 to 6.8.",
         githubLink: "https://github.com/gee-kay06/inventory-management",
         liveLink: "https://inventory-optimizer.streamlit.app",
         images: [
@@ -883,10 +890,24 @@
       `).join('');
     }
 
-    // Show project detail
+    // Show project detail with enhanced sections
     function showProjectDetail(projectId) {
       const project = projects.find(p => p.id === projectId);
       if (!project) return;
+
+      // Generate project links HTML - hide live app button if no live link
+      const projectLinksHTML = `
+        <div class="project-links">
+          <a href="${project.githubLink}" target="_blank" class="project-link">
+            📚 GitHub
+          </a>
+          ${project.liveLink ? `
+            <a href="${project.liveLink}" target="_blank" class="project-link">
+              🚀 Live App
+            </a>
+          ` : ''}
+        </div>
+      `;
 
       const detailContent = document.getElementById('project-detail-content');
       detailContent.innerHTML = `
@@ -897,14 +918,7 @@
               ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
             </div>
           </div>
-          <div class="project-links">
-            <a href="${project.githubLink}" target="_blank" class="project-link">
-              📚 GitHub
-            </a>
-            <a href="${project.liveLink}" target="_blank" class="project-link">
-              🚀 Live App
-            </a>
-          </div>
+          ${projectLinksHTML}
         </div>
         
         <div class="project-section">
@@ -915,6 +929,16 @@
         <div class="project-section">
           <h3>Solution</h3>
           <p>${project.solution}</p>
+        </div>
+        
+        <div class="project-section">
+          <h3>Approach</h3>
+          <p>${project.approach}</p>
+        </div>
+        
+        <div class="project-section">
+          <h3>Results</h3>
+          <p>${project.results}</p>
         </div>
         
         <div class="project-section">
@@ -933,7 +957,11 @@
       // Hide projects grid and show detail
       projectsGrid.style.display = 'none';
       noResults.style.display = 'none';
+      document.querySelector('.search-container').style.display = 'none';
       document.getElementById('project-detail').classList.add('active');
+      
+      // Update URL
+      updateUrl(projectId);
       
       // Scroll to top
       window.scrollTo(0, 0);
@@ -943,205 +971,129 @@
     function showAllProjects() {
       document.getElementById('project-detail').classList.remove('active');
       projectsGrid.style.display = 'grid';
+      document.querySelector('.search-container').style.display = 'block';
       searchInput.value = '';
       displayProjects(projects);
+      
+      // Update URL to remove project parameter
+      updateUrl(null);
     }
-    // Add this to your existing projects.html JavaScript section
 
-// Function to get URL parameters
-function getUrlParameter(name) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
-}
-
-// Function to update URL without page reload
-function updateUrl(projectId) {
-  const newUrl = projectId ? `${window.location.pathname}?project=${projectId}` : window.location.pathname;
-  window.history.pushState({projectId}, '', newUrl);
-}
-
-// Modified showProjectDetail function
-function showProjectDetail(projectId) {
-  const project = projects.find(p => p.id === projectId);
-  if (!project) return;
-
-  const detailContent = document.getElementById('project-detail-content');
-  detailContent.innerHTML = `
-    <div class="project-detail-header">
-      <div>
-        <h1 class="project-detail-title">${project.title}</h1>
-        <div class="project-skills">
-          ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-        </div>
-      </div>
-      <div class="project-links">
-        <a href="${project.githubLink}" target="_blank" class="project-link">
-          📚 GitHub
-        </a>
-        <a href="${project.liveLink}" target="_blank" class="project-link">
-          🚀 Live App
-        </a>
-      </div>
-    </div>
-    
-    <div class="project-section">
-      <h3>Problem Statement</h3>
-      <p>${project.problemStatement}</p>
-    </div>
-    
-    <div class="project-section">
-      <h3>Solution</h3>
-      <p>${project.solution}</p>
-    </div>
-    
-    <div class="project-section">
-      <h3>Project Visualizations</h3>
-      <div class="project-images">
-        ${project.images.map(image => `
-          <div class="project-image-item">
-            <img src="${image.src}" alt="${image.caption}">
-            <div class="project-image-caption">${image.caption}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
-  
-  // Hide projects grid and show detail
-  projectsGrid.style.display = 'none';
-  noResults.style.display = 'none';
-  document.querySelector('.search-container').style.display = 'none';
-  document.getElementById('project-detail').classList.add('active');
-  
-  // Update URL
-  updateUrl(projectId);
-  
-  // Scroll to top
-  window.scrollTo(0, 0);
-}
-
-// Modified showAllProjects function
-function showAllProjects() {
-  document.getElementById('project-detail').classList.remove('active');
-  projectsGrid.style.display = 'grid';
-  document.querySelector('.search-container').style.display = 'block';
-  searchInput.value = '';
-  displayProjects(projects);
-  
-  // Update URL to remove project parameter
-  updateUrl(null);
-}
-
-// Check for project parameter on page load
-document.addEventListener('DOMContentLoaded', function() {
-  const projectId = getUrlParameter('project');
-  if (projectId) {
-    const projectIdNum = parseInt(projectId);
-    if (projects.find(p => p.id === projectIdNum)) {
-      showProjectDetail(projectIdNum);
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
     }
-  }
-});
 
-// Handle browser back/forward buttons
-window.addEventListener('popstate', function(event) {
-  const projectId = getUrlParameter('project');
-  if (projectId) {
-    const projectIdNum = parseInt(projectId);
-    if (projects.find(p => p.id === projectIdNum)) {
-      showProjectDetail(projectIdNum);
+    // Function to update URL without page reload
+    function updateUrl(projectId) {
+      const newUrl = projectId ? `${window.location.pathname}?project=${projectId}` : window.location.pathname;
+      window.history.pushState({projectId}, '', newUrl);
     }
-  } else {
-    showAllProjects();
-  }
-});
-  // Show resume modal
-function showResumeModal() {
-  const modal = document.getElementById('resumeModal');
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
-// Close resume modal
-function closeResumeModal() {
-  const modal = document.getElementById('resumeModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
+    // Check for project parameter on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const projectId = getUrlParameter('project');
+      if (projectId) {
+        const projectIdNum = parseInt(projectId);
+        if (projects.find(p => p.id === projectIdNum)) {
+          showProjectDetail(projectIdNum);
+        }
+      }
+    });
 
-// Close modal when clicking outside
-document.getElementById('resumeModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeResumeModal();
-  }
-});
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function(event) {
+      const projectId = getUrlParameter('project');
+      if (projectId) {
+        const projectIdNum = parseInt(projectId);
+        if (projects.find(p => p.id === projectIdNum)) {
+          showProjectDetail(projectIdNum);
+        }
+      } else {
+        showAllProjects();
+      }
+    });
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeResumeModal();
-  }
-});
+    // Show resume modal
+    function showResumeModal() {
+      const modal = document.getElementById('resumeModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close resume modal
+    function closeResumeModal() {
+      const modal = document.getElementById('resumeModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('resumeModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeResumeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeResumeModal();
+      }
+    });
+
     // Function to navigate to contact section
-function navigateToContact() {
-  // Check if we're on the homepage
-  const isHomepage = window.location.pathname.includes('index.html') || 
-                    window.location.pathname === '/' || 
-                    window.location.pathname.endsWith('/');
-  
-  if (isHomepage) {
-    // We're on homepage, just scroll to contact
-    scrollToContact();
-  } else {
-    // We're on a different page, navigate to homepage first
-    window.location.href = 'index.html#contact';
-  }
-}
+    function navigateToContact() {
+      // Check if we're on the homepage
+      const isHomepage = window.location.pathname.includes('index.html') || 
+                        window.location.pathname === '/' || 
+                        window.location.pathname.endsWith('/');
+      
+      if (isHomepage) {
+        // We're on homepage, just scroll to contact
+        scrollToContact();
+      } else {
+        // We're on a different page, navigate to homepage first
+        window.location.href = 'index.html#contact';
+      }
+    }
 
-// Function to scroll to contact section
-function scrollToContact() {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    contactSection.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
-
-// Handle page load with hash (for homepage)
-window.addEventListener('load', function() {
-  if (window.location.hash === '#contact') {
-    setTimeout(() => {
-      scrollToContact();
-    }, 100);
-  }
-});
+    // Function to scroll to contact section
     function scrollToContact() {
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    const navbarHeight = document.querySelector('.navbar').offsetHeight;
-    const elementPosition = contactSection.offsetTop;
-    const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        const elementPosition = contactSection.offsetTop;
+        const offsetPosition = elementPosition - navbarHeight - 20; // 20px extra padding
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Handle page load with hash (for homepage)
+    window.addEventListener('load', function() {
+      if (window.location.hash === '#contact') {
+        setTimeout(() => {
+          scrollToContact();
+        }, 100);
+      }
     });
-  }
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Add a small delay to ensure all content is rendered
-  setTimeout(function() {
-    document.body.classList.add('loaded');
-  }, 100);
-});
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add a small delay to ensure all content is rendered
+      setTimeout(function() {
+        document.body.classList.add('loaded');
+      }, 100);
+    });
 
-// Also trigger on window load as a fallback
-window.addEventListener('load', function() {
-  document.body.classList.add('loaded');
-});
+    // Also trigger on window load as a fallback
+    window.addEventListener('load', function() {
+      document.body.classList.add('loaded');
+    });
   </script>
 </body>
 </html>
