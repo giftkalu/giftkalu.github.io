@@ -356,11 +356,24 @@
     }
 
     .project-images {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  justify-items: center;
+}
+
+.project-images.single-image {
+  grid-template-columns: 1fr;
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+.project-images.two-images {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
+  margin: 2rem auto 0;
+}
 
     .project-image-item {
       background: var(--cream);
@@ -957,7 +970,7 @@
         
         <div class="project-section">
           <h3>Project Visualizations</h3>
-          <div class="project-images">
+          <div class="project-images ${project.images.length === 1 ? 'single-image' : project.images.length === 2 ? 'two-images' : ''}">
             ${project.images.map(image => `
               <div class="project-image-item">
                 <img src="${image.src}" alt="${image.caption}">
