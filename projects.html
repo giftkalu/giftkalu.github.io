@@ -343,6 +343,18 @@
       margin-bottom: 1rem;
     }
 
+    .project-section ul {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .project-section li {
+      margin-bottom: 0.5rem;
+    }
+
     .project-images {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -677,21 +689,19 @@
     const projects = [
       {
         id: 1,
-        title: "Customer Churn Prediction",
-        description: "Machine learning model to predict customer churn using advanced analytics and feature engineering. Achieved 89% accuracy with ensemble methods.",
-        skills: ["Python", "Machine Learning", "Pandas", "Scikit-learn", "Data Visualization"],
+        title: "Customer Churn Prediction (Telecommunications)",
+        description: "Machine learning model to predict customer churn for Expresso telecom, enabling proactive retention strategies.",
+        skills: ["Python", "Machine Learning", "Pandas", "Scikit-learn", "Data Visualization", "Exploratory Data Analysis"],
         icon: "📊",
         gradient: "linear-gradient(135deg, #a0845c 0%, #8b4513 100%)",
-        problemStatement: "A telecommunications company was experiencing high customer churn rates (25% annually), leading to significant revenue loss and increased customer acquisition costs. The company needed a predictive model to identify at-risk customers before they churned.",
-        solution: "Developed a comprehensive machine learning pipeline that analyzes customer behavior patterns, usage statistics, and demographic data to predict churn probability with high accuracy.",
-        approach: "Applied a systematic data science methodology including: data cleaning and preprocessing, exploratory data analysis with statistical testing, feature engineering using domain knowledge, model selection comparing Random Forest, XGBoost, and ensemble methods, hyperparameter tuning with cross-validation, and model interpretation using SHAP values for business insights.",
-        results: "Achieved 89% accuracy and 0.85 F1-score on test data. Identified top 3 churn indicators: contract type, monthly charges, and tenure. Enabled the company to reduce churn by 15% through targeted retention campaigns, resulting in $2.3M annual revenue retention.",
-        githubLink: "https://github.com/gee-kay06/customer-churn-prediction",
-        liveLink: "https://customer-churn-predictor.streamlit.app",
+        problemStatement: "Expresso, a telecom company, needed to identify customers at risk of churn (no activity for 90+ days) to enable proactive retention.",
+        solution: "Built a logistic regression model to predict churn using customer demographics, usage patterns, and engagement metrics.",
+        approach: "Exploratory data analysis with missing value treatment.\n Feature correlation analysis for variable selection.\n Logistic regression model with preprocessing pipeline. \n Cross-validation using log-loss metric.",
+        results: "Identified critical churn indicators through correlation analysis. \n Successfully trained predictive model generating churn probabilities. \n Revealed relationships between customer tenure, revenue patterns, and churn likelihood",
+        githubLink: "https://github.com/giftkalu/Expresso-Customer-Churn-Prediction",
+        liveLink: null,
         images: [
-          { src: "https://via.placeholder.com/400x200/8b4513/ffffff?text=Feature+Correlation+Heatmap", caption: "Feature Correlation Analysis" },
-          { src: "https://via.placeholder.com/400x200/a0845c/ffffff?text=Model+Performance+Metrics", caption: "Model Performance Comparison" },
-          { src: "https://via.placeholder.com/400x200/d2b48c/ffffff?text=Churn+Probability+Distribution", caption: "Churn Probability Distribution" }
+          { src: "assets/corr", caption: "Feature Correlation Analysis" }
         ]
       },
       {
@@ -933,12 +943,16 @@
         
         <div class="project-section">
           <h3>Approach</h3>
-          <p>${project.approach}</p>
+          <ul>
+            ${project.approach.split('\n').filter(item => item.trim()).map(item => `<li>${item.trim()}</li>`).join('')}
+          </ul>
         </div>
         
         <div class="project-section">
           <h3>Results</h3>
-          <p>${project.results}</p>
+          <ul>
+            ${project.results.split('\n').filter(item => item.trim()).map(item => `<li>${item.trim()}</li>`).join('')}
+          </ul>
         </div>
         
         <div class="project-section">
