@@ -365,7 +365,7 @@
 
 .project-images.single-image {
   grid-template-columns: 1fr;
-  max-width: 600px;
+  max-width: 900px;
   margin: 2rem auto 0;
 }
 
@@ -383,10 +383,15 @@
     }
 
     .project-image-item img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-images.single-image .project-image-item img {
+  height: 400px;
+  object-fit: contain;
+}
 
     .project-image-caption {
       padding: 1rem;
