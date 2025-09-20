@@ -762,21 +762,21 @@
       },
       {
         id: 4,
-        title: "Data Visualization Dashboard",
-        description: "Interactive business intelligence dashboard with real-time metrics, KPI tracking, and automated reporting features for executive decision-making.",
-        skills: ["Python", "Plotly", "Dash", "PostgreSQL", "Data Visualization"],
+        title: "Term Deposit Subscription Prediction",
+        description: "Built a Decision Tree classifier to predict bank term deposit subscriptions with 82.9% accuracy, identifying call duration as the key success factor and enabling targeted marketing strategies for high-value customer segments.",
+        skills: ["Python", "Scikit-learn", "Data Visualization", "Machine Learning", "Data Preprocessing", "Streamlit"],
         icon: "📊",
         gradient: "linear-gradient(135deg, #a0845c 0%, #8b4513 100%)",
-        problemStatement: "A growing startup needed a centralized dashboard to track business metrics across different departments. Executives were spending too much time collecting data from various sources instead of making strategic decisions.",
-        solution: "Created a comprehensive business intelligence dashboard that consolidates data from multiple sources into a unified, real-time analytical platform.",
-        approach: "Developed a full-stack BI solution including: ETL pipelines to extract data from CRM, marketing, and financial systems, PostgreSQL database design for optimized query performance, interactive dashboard development using Plotly Dash, automated report generation with scheduled exports, and role-based access control for different user types.",
-        results: "Reduced executive decision-making time by 60% through real-time insights. Automated 25+ manual reports, saving 40 hours per week across departments. Improved data accuracy from 85% to 99% by eliminating manual data entry errors. Dashboard adoption rate of 95% across all departments.",
-        githubLink: "https://github.com/gee-kay06/business-dashboard",
+        problemStatement: "Banks waste marketing resources on untargeted term deposit campaigns, achieving low conversion rates and poor customer experience.",
+        solution: "Built a Decision Tree model to predict subscription likelihood from customer data, enabling targeted marketing with 82.9% accuracy.",
+        approach: "Analyzed 11,162 customer records with 16 features.\n Applied label encoding and EDA with visualizations. \n Used Grid Search for hyperparameter tuning. \n Implemented tree pruning to prevent overfitting. \n Validated with 5-fold cross-validation",
+        results: "Call duration is most important predictor with 78% feature importance. \n Management workers show highest subscription rates. \n Customers with secondary education were more likely to subscribe. \n Customers who had no loan defaults show higher subscription rate. \n Cellular contact more effective than telephone.",
+        githubLink: "https://github.com/giftkalu/Term_Deposit_Subscription_Prediction",
         liveLink: "https://business-metrics-dashboard.onrender.com",
         images: [
-          { src: "https://via.placeholder.com/400x200/8b4513/ffffff?text=Executive+Dashboard", caption: "Executive Summary Dashboard" },
-          { src: "https://via.placeholder.com/400x200/a0845c/ffffff?text=Sales+Analytics", caption: "Sales Performance Analytics" },
-          { src: "https://via.placeholder.com/400x200/d2b48c/ffffff?text=Financial+Metrics", caption: "Financial KPIs Overview" }
+          { src: "assets/td1.png", caption: "Target Variable Distribution" },
+          { src: "assets/td2.png", caption: "Job Category Distribution by Deposit Status" },
+          { src: "assets/td3.png", caption: "Decision Tree Visualization" }
         ]
       },
       {
