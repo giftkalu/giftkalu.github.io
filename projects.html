@@ -734,7 +734,7 @@
         approach: "Speech-to-Text: Transcribed queries using OpenAI Whisper with sector-specific bias prompts.\n Noise Handling: Preprocessed audio with librosa + noisereduce, with normalization fallback.\n Contextual Matching: Applied cosine similarity between query and FAQ embeddings.\n Low-Similarity Strategy: Re-ran queries with appended “Cowrywise” or replaced “you” → “Cowrywise.”\n Semantic Embeddings: Encoded FAQs using sentence-transformers for robust similarity search.\n Response Generation: Converted answers to natural audio with gTTS + pydub.\n Deployment: Served via FastAPI + Uvicorn with CORS support and static HTML frontend.",
         results: "The prototype voice assistant achieved high transcription accuracy, even under noisy conditions.\nIt enabled instant, voice-driven FAQ retrieval in demos, reducing manual search effort.\nThrough domain-aware query handling, the system delivered sector-specific answers that aligned with Cowrywise’s context.",
         githubLink: "https://github.com/giftkalu/Voice-Assistant-for-FAQ",
-        liveLink: null",
+        liveLink: null,
         images: [
           { src: "assets/va1.png", caption: "First Phase: Recording" },
           { src: "assets/va2.png", caption: "Second Phase: Retrieving suitable response" },
