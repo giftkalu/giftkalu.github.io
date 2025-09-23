@@ -724,21 +724,21 @@
       },
       {
         id: 2,
-        title: "Sales Forecasting Dashboard",
-        description: "Interactive dashboard for sales prediction using time series analysis and seasonal decomposition. Includes real-time data updates and automated reporting.",
-        skills: ["Python", "Time Series Analysis", "Plotly", "Streamlit", "SQL"],
+        title: "Voice Assistant for FAQs",
+        description: "AI-powered voice assistant that transcribes speech, understands FAQs, and responds with natural voice output using FastAPI.",
+        skills: ["Python", "FastAPI", "NLP", "Whisper ", "gTTS", "pydub"],
         icon: "📈",
         gradient: "linear-gradient(135deg, #d2b48c 0%, #a0845c 100%)",
-        problemStatement: "A retail company struggled with inventory management and sales planning due to lack of accurate sales forecasting. Manual forecasting methods were time-consuming and often inaccurate, leading to stockouts and overstock situations.",
-        solution: "Built an automated sales forecasting system using advanced time series models with interactive visualizations and real-time data integration for accurate demand planning.",
-        approach: "Implemented multiple forecasting techniques including: ARIMA modeling for trend analysis, Prophet for handling seasonality and holidays, ensemble methods combining multiple models, automated feature engineering for external factors, and real-time dashboard development with Streamlit and Plotly for interactive visualization.",
-        results: "Improved forecast accuracy by 35% compared to manual methods (MAPE reduced from 18% to 12%). Reduced inventory costs by 22% while maintaining 98% stock availability. Automated reporting saved 15 hours per week of manual analysis work.",
-        githubLink: "https://github.com/gee-kay06/sales-forecasting",
-        liveLink: "https://sales-forecast-dashboard.herokuapp.com",
+        problemStatement: "Organizations face challenges in providing quick and accurate responses to repetitive customer queries. Static FAQ pages force users to manually search, which reduces efficiency and creates poor user experiences.",
+        solution: "Built an AI-powered voice assistant that transcribes spoken queries, searches sector-specific FAQs, and responds with natural voice output, customized to prioritize domain-specific terms and adapt queries for relevance.",
+        approach: "Speech-to-Text: Transcribed queries using OpenAI Whisper with sector-specific bias prompts.\n Noise Handling: Preprocessed audio with librosa + noisereduce, with normalization fallback.\n Contextual Matching: Applied cosine similarity between query and FAQ embeddings.\n Low-Similarity Strategy: Re-ran queries with appended “Cowrywise” or replaced “you” → “Cowrywise.”\n Semantic Embeddings: Encoded FAQs using sentence-transformers for robust similarity search.\n Response Generation: Converted answers to natural audio with gTTS + pydub.\n Deployment: Served via FastAPI + Uvicorn with CORS support and static HTML frontend.",
+        results: "The prototype voice assistant achieved high transcription accuracy, even under noisy conditions.\nIt enabled instant, voice-driven FAQ retrieval in demos, reducing manual search effort.\nThrough domain-aware query handling, the system delivered sector-specific answers that aligned with Cowrywise’s context.",
+        githubLink: "https://github.com/giftkalu/Voice-Assistant-for-FAQ",
+        liveLink: null",
         images: [
-          { src: "https://via.placeholder.com/400x200/8b4513/ffffff?text=Sales+Trend+Analysis", caption: "Historical Sales Trend Analysis" },
-          { src: "https://via.placeholder.com/400x200/a0845c/ffffff?text=Seasonal+Decomposition", caption: "Seasonal Pattern Decomposition" },
-          { src: "https://via.placeholder.com/400x200/d2b48c/ffffff?text=Forecast+Accuracy+Metrics", caption: "Forecast vs Actual Performance" }
+          { src: "assets/va1.png", caption: "First Phase: Recording" },
+          { src: "assets/va2.png", caption: "Second Phase: Retrieving suitable response" },
+          { src: "assets/va3.png", caption: "Final Phase: Playing Response" }
         ]
       },
       {
