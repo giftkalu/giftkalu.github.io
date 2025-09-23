@@ -1341,7 +1341,19 @@ a.project-card:hover {
         });
       }, { threshold: 0.1 });
       fadeInSections.forEach(section => observer.observe(section));
-    });
+      new BooksCarousel();
+    
+    const contactLink = document.querySelector('a[href="#contact"]');
+    if (contactLink) {
+        contactLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    }
+});
     // Show resume modal
 function showResumeModal() {
   const modal = document.getElementById('resumeModal');
@@ -1517,6 +1529,7 @@ document.addEventListener('keydown', function(e) {
         document.addEventListener('DOMContentLoaded', () => {
             new BooksCarousel();
         });
+        
   </script>
 </body>
 </html>
