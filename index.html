@@ -211,7 +211,7 @@
     }
 
     .profile-pic {
-  width: clamp(200px, 30vw, 495px); /* shrinks with screen, min 200px, max 495px */
+  width: clamp(190px, 30vw, 490px); /* shrinks with screen, min 200px, max 495px */
   height: clamp(200px, 30vw, 500px); /* maintains circular proportion */
   border-radius: 50%; /* keeps it circular */
   object-fit: cover;
@@ -313,7 +313,8 @@
       gap: 1rem;
       padding: 1rem 0;
       position: relative;
-      width: 100%;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
     }
 
     .carousel-track {
@@ -325,6 +326,7 @@
 
     .carousel.reverse .carousel-track {
       animation: scroll-infinite-reverse 30s linear infinite;
+      
     }
 
     @keyframes scroll-infinite {
@@ -1162,7 +1164,7 @@ a.project-card:hover {
     <button onclick="window.location.href='https://medium.com/@giftkalu'">Show More</button>
   </section>
 
-  <section class="certificates fade-in-section">
+  <section class="certificates fade-in-section" style="position: relative;">
   <h2>Certificates</h2>
   <div class="carousel reverse" id="certificates-container">
     <div class="carousel-track">
