@@ -93,16 +93,15 @@
   }
 }
 
-	/* Carousel container */
-/* Carousel container */
 .carousel-container {
   position: relative; /* for absolute positioning of button */
-  width: 97vw;
+  width: 100vw;
   display: flex;
   align-items: center;
   padding: 0;
   margin: 0;
   overflow: hidden;
+  margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
 }
 
@@ -112,19 +111,15 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   scroll-behavior: smooth;
-  gap: 0 rem;
+  gap: 1rem; /* Fixed: removed space between 1 and rem */
   padding: 0;
   margin: 0;
+  width: 100%; /* Fixed: added semicolon */
 }
 
 /* Carousel items */
 .carousel-wrapper > * {
   flex: 0 0 auto;
-  margin-left: 1rem;
-}
-
-.carousel-wrapper > *:first-child {
-  margin-left: 0;
 }
 
 /* View all projects button */
@@ -515,19 +510,21 @@ a.project-card:hover {
             line-height: 1.2;
         }
 
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            padding: 1rem 0;
-        }
+        .books-carousel .carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 1rem 0;
+  /* Reset width for books only */
+}
 
         .books-carousel .carousel-track {
             display: flex;
             gap: 1rem;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            width: fit-content;
+            width: 100vw;
             animation: none !important
+            
         }
 
         .book-card {
