@@ -119,14 +119,14 @@
     }
 
     .page-header h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1.7rem, 4.5vw, 3.5rem);
       color: var(--text-dark);
       margin-bottom: 1rem;
       font-weight: 700;
     }
 
     .page-header p {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-size: clamp(0.85rem, 2.2vw, 1.3rem);
       color: var(--brown-dark);
       max-width: 700px;
       margin: 0 auto;
@@ -136,7 +136,7 @@
     .filter-section {
       background: var(--white);
       border-radius: 20px;
-      padding: 2rem;
+      padding: clamp(1.2rem, 3vw, 2rem);
       margin-bottom: 3rem;
       box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
       border: 1px solid var(--brown-light);
@@ -154,11 +154,11 @@
       background: var(--cream);
       color: var(--text-dark);
       border: 1px solid var(--brown-light);
-      padding: 0.8rem 1.5rem;
+      padding: clamp(0.5rem, 1.5vw, 0.8rem) clamp(0.8rem, 2vw, 1.2rem);
       border-radius: 25px;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 0.9rem;
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
       font-weight: 500;
     }
 
@@ -172,7 +172,7 @@
     .articles-container {
       background: var(--white);
       border-radius: 20px;
-      padding: 2.5rem;
+      padding: clamp(1.5rem, 3.5vw, 2.5rem);
       box-shadow: 0 8px 25px rgba(139, 69, 19, 0.1);
       border: 1px solid var(--brown-light);
       margin-bottom: 3rem;
@@ -181,7 +181,7 @@
     .article-item {
       background: var(--cream);
       border-radius: 12px;
-      padding: 2rem;
+      padding: clamp(1.2rem, 3vw, 2rem);
       margin-bottom: 1.5rem;
       border-left: 4px solid var(--brown-medium);
       transition: all 0.3s ease;
@@ -199,7 +199,7 @@
     }
 
     .article-title {
-      font-size: 1.3rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
       color: var(--text-dark);
       margin-bottom: 0.8rem;
       font-weight: 600;
@@ -209,6 +209,7 @@
       color: var(--brown-dark);
       margin-bottom: 1rem;
       line-height: 1.6;
+      font-size: clamp(0.8rem, 2vw, 0.95rem); 
     }
 
     .article-meta {
@@ -221,7 +222,7 @@
 
     .article-date {
       color: var(--light-gray);
-      font-size: 0.9rem;
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
     }
 
     .article-category {
@@ -229,7 +230,7 @@
       color: white;
       padding: 0.3rem 0.8rem;
       border-radius: 15px;
-      font-size: 0.8rem;
+      font-size: clamp(0.7rem, 1.5vw, 0.8rem);
       font-weight: 500;
     }
 
@@ -255,7 +256,7 @@
 
     .cta-section {
       text-align: center;
-      padding: 3rem;
+      padding: clamp(2rem, 4vw, 3rem);
       background: linear-gradient(135deg, var(--brown-medium), var(--brown-dark));
       border-radius: 20px;
       margin-bottom: 3rem;
@@ -263,12 +264,12 @@
     }
 
     .cta-section h2 {
-      font-size: 2.2rem;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
       margin-bottom: 1rem;
     }
 
     .cta-section p {
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 2.2vw, 1.1rem);
       margin-bottom: 2rem;
       opacity: 0.9;
     }
@@ -279,7 +280,7 @@
       padding: 1rem 2rem;
       border: none;
       border-radius: 12px;
-      font-size: 1rem;
+      font-size: clamp(0.85rem, 2vw, 1rem);
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -436,7 +437,7 @@
 
 .footer h2 {
   margin-bottom: 1rem;
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
 }
 
      .socials {
@@ -558,14 +559,7 @@
     }
 
     @media (max-width: 480px) {
-      .filter-section {
-        padding: 1.5rem;
-      }
-
-      .articles-container {
-        padding: 1.5rem;
-      }
-
+      
       .cta-section {
         padding: 2rem;
       }
